@@ -33,10 +33,10 @@ class JournalsController < ApplicationController
   #   end
   # end
 
-  # # GET /journals/1/edit
-  # def edit
-  #   @journal = Journal.find(params[:id])
-  # end
+  # GET /journals/1/edit
+  def edit
+    @journal = Journal.find(params[:id])
+  end
 
   # # POST /journals
   # # POST /journals.json
@@ -54,21 +54,21 @@ class JournalsController < ApplicationController
   #   end
   # end
 
-  # # PUT /journals/1
-  # # PUT /journals/1.json
-  # def update
-  #   @journal = Journal.find(params[:id])
+  # PUT /journals/1
+  # PUT /journals/1.json
+  def update
+    @journal = Journal.find(params[:id])
 
-  #   respond_to do |format|
-  #     if @journal.update_attributes(params[:journal])
-  #       format.html { redirect_to @journal, :notice => 'Journal was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.json { render :json => @journal.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @journal.update_attributes(params[:journal])
+        format.html { redirect_to edit_journal_path(@journal), :notice => 'Journal was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @journal.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 
   # # DELETE /journals/1
   # # DELETE /journals/1.json

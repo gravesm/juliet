@@ -1,4 +1,4 @@
-<%= form_for(@journal) do |f| %>
+<%= form_for(@journal, html: {class: "form-horizontal"}) do |f| %>
   <% if @journal.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@journal.errors.count, "error") %> prohibited this journal from being saved:</h2>
@@ -11,7 +11,14 @@
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="control-group">
+    <%= f.label :name, "Canonical Name", class: "control-label" %>
+    <div class="controls">
+      <%= f.text_field :name, { size: nil, class: "span12" } %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit class: "btn btn-primary" %>
   </div>
 <% end %>
