@@ -1,0 +1,25 @@
+
+<h1><%= @journal.name %></h1>
+
+<div class="row-fluid">
+    <% if @journal.policy %>
+        <div class="policy-box span9">
+            <h3>Journal Policy</h3>
+            <%= render :partial => "search/policy", :object => @journal.policy %>
+        </div>
+    <% else %>
+        <div class="alert">No policy for this journal.</div>
+    <% end %>
+</div>
+
+<h3>Publisher</h3>
+<%= link_to @journal.publisher.name, publisher_path(@journal.publisher) %>
+
+<% unless @journal.entity_refs.empty? %>
+    <h3>Aliases</h3>
+    <ul>
+        <% @journal.entity_refs.each do |ref| %>
+            <li><%= ref.refvalue %></li>
+        <% end %>
+    </ul>
+<% end %>

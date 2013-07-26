@@ -1,0 +1,42 @@
+<h2>Search for Policies</h2>
+
+<%= form_tag({:controller => "search", :action => "index"}, :method => "get", :class => "form-search") do %>
+    <div class="input-append">
+        <%= text_field_tag :query, nil, :class => "search-query" %>
+        <%= button_tag "Search", :type => "submit", :class => "btn", :name => nil %>
+    </div>
+<% end %>
+
+<% if @journals %>
+
+    <% if @journals.empty? %>
+        <div>No matching journals.</div>
+    <% end %>
+
+    <% @journals.each do |journal| %>
+        <% if journal.policy %>
+            <div class="policy-box span9">
+                <h4><%= link_to journal.name, journal_path(journal) %></h4>
+                <div class="row-fluid policy-row">
+                    <div class="span4"><strong>Type:</strong></div>
+                    <div class="span8">Journal Policy</div>
+                </div>
+                <%= render :partial => "policy", :object => journal.policy %>
+            </div>
+        <% elsif journal.publisher.policy %>
+            <div class="alert">No journal policy for <%= journal.name %>. Showing
+                active publisher policy.</div>
+            <div class="policy-box span9">
+                <h4><%= link_to journal.publisher.name, publisher_path(journal.publisher) %></h4>
+                <div class="row-fluid policy-row">
+                    <div class="span4"><strong>Type:</strong></div>
+                    <div class="span8">Publisher Policy</div>
+                </div>
+                <%= render :partial => "policy", :object => journal.publisher.policy %>
+            </div>
+        <% else %>
+            <div class="alert alert-error">No active journal or publisher policy for
+                <%= journal.name %></div>
+        <% end %>
+    <% end %>
+<% end %>

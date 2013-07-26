@@ -1,0 +1,73 @@
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+body {
+    padding-top: 60px;
+    padding-bottom: 50px;
+}
+
+.resource-listing > .row-fluid {
+    padding: 0.5em 10px;
+}
+
+.resource-listing > .row-fluid:nth-child(even) {
+    background-color: #f0f0f0;
+}
+
+.navbar a {
+    border-right: 1px solid #cccccc;
+}
+
+.policy-box {
+    background-color: #f7f7f7;
+    padding: 5px 15px 10px;
+    border: 1px solid #cccccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 10px;
+}
+
+.policy-row {
+    margin-bottom: 5px;
+}
+
+.pagination {
+    text-align: center;
+}
+
+.pagination a, .page.current {
+    margin: 0 3px;
+    padding: 1px 5px;
+    display: inline-block;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px;
+    border-radius: 1px;
+}
+
+.pagination a {
+    background-color: #f6f6f6;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f6f6f6, #e0e0e0));
+    background-image: -webkit-linear-gradient(top, #f6f6f6, #e0e0e0);
+    background-image: -moz-linear-gradient(top, #f6f6f6, #e0e0e0);
+    background-image: -o-linear-gradient(top, #f6f6f6, #e0e0e0);
+    background-image: linear-gradient(to bottom, #f6f6f6, #e0e0e0);
+    border: 1px solid #bbbbbb;
+    border-bottom-color: #aaaaaa;
+    color: #25567b;
+}
+
+.pagination a:hover {
+    text-decoration: none;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#eeeeee, #c0c0c0));
+    background-image: -webkit-linear-gradient(top, #eeeeee, #c0c0c0);
+    background-image: -moz-linear-gradient(top, #eeeeee, #c0c0c0);
+    background-image: -o-linear-gradient(top, #eeeeee, #c0c0c0);
+    background-image: linear-gradient(to bottom, #eeeeee, #c0c0c0);
+    color: #25567b;
+}
+
+.page.current {
+    background-color: #25567B;
+    border: 1px solid #033e6b;
+    color: #ffffff;
+}

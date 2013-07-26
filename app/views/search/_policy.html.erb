@@ -1,0 +1,26 @@
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Contact:</strong></div>
+    <div class="span8"><%= policy.contact %></div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Embargo:</strong></div>
+    <div class="span8"><%= policy.embargo %></div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Permission to Harvest:</strong></div>
+    <div class="span8">
+        <% if policy.harvestable %>
+            Yes
+        <% else %>
+            No
+        <% end %>
+    </div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Method of Harvest:</strong></div>
+    <div class="span8"><%= policy.harvest_method %></div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Notes:</strong></div>
+    <div class="span8"><%= policy.note %></div>
+</div>

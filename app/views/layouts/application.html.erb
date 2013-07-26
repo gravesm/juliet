@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pubeng</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <%= link_to "PubEngine", root_url, :class => "brand" %>
+                <ul class="nav">
+                  <li><%= link_to "Publishers", publishers_url %></li>
+                  <li><%= link_to "Journals", journals_url %></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span2">
+            <%= yield :left_bar %>
+        </div>
+        <div class="span7">
+            <%= yield %>
+        </div>
+        <div class="span3">
+            <%= yield :right_bar %>
+        </div>
+    </div>
+</body>
+</html>
