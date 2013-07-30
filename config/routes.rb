@@ -5,7 +5,9 @@ Pubeng::Application.routes.draw do
   root :to => 'search#index'
 
   resources :publishers
-  resources :journals
+  resources :journals do
+    resources :entity_refs
+  end
   # match 'search/q', :controller => 'search', :action => 'search'
 
   # The priority is based upon order of creation:
