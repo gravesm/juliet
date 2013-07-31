@@ -43,6 +43,7 @@ gem 'kaminari'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'factory_girl_rails'
+gem 'ejs'
 
 group :development, :test do
     gem 'rspec-rails', '~> 2.0'
