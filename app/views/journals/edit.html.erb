@@ -39,7 +39,7 @@
                     context: this
                 }).done(function(data) {
                     $("#add_alias").val("");
-                    $(".alias-input").last().after(JST['templates/alias_input']({
+                    $(".alias-input").append(JST['templates/alias_input']({
                         refvalue: data.refvalue,
                         url: "/journals/<%= @journal.id %>/entity_refs/" + data.id
                     }));

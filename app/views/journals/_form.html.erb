@@ -21,19 +21,21 @@
   <fieldset>
     <legend>Aliases</legend>
     <div id="alias_message"></div>
-    <% @journal.entity_refs.each do |ref| %>
-      <div class="control-group alias-input">
-        <div class="controls">
-          <span class="input-xlarge uneditable-input" title="<%= ref.refvalue %>">
-            <%= ref.refvalue %>
-          </span>
-          <button type="button" class="btn delete_alias" title="Delete alias"
-            data-url="<%= journal_entity_ref_path @journal, ref %>">
-            <i class="icon-trash"></i>
-          </button>
+    <div class="alias-input">
+      <% @journal.entity_refs.each do |ref| %>
+        <div class="control-group">
+          <div class="controls">
+            <span class="input-xlarge uneditable-input" title="<%= ref.refvalue %>">
+              <%= ref.refvalue %>
+            </span>
+            <button type="button" class="btn delete_alias" title="Delete alias"
+              data-url="<%= journal_entity_ref_path @journal, ref %>">
+              <i class="icon-trash"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
     <div class="control-group">
       <div class="controls">
         <a href="#add_dialog" role="button" class="btn" data-toggle="modal">Add a new alias</a>
