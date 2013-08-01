@@ -4,7 +4,9 @@ Pubeng::Application.routes.draw do
 
   root :to => 'search#index'
 
-  resources :publishers
+  resources :publishers do
+    resources :entity_refs
+  end
   resources :journals do
     resources :entity_refs
   end

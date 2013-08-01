@@ -9,16 +9,46 @@
 <div class="row-fluid policy-row">
     <div class="span4"><strong>Permission to Harvest:</strong></div>
     <div class="span8">
-        <% if policy.harvestable %>
-            Yes
-        <% else %>
-            No
+        <% unless policy.harvestable.nil? %>
+            <% if policy.harvestable %>
+                Yes
+            <% else %>
+                No
+            <% end %>
         <% end %>
     </div>
 </div>
 <div class="row-fluid policy-row">
     <div class="span4"><strong>Method of Harvest:</strong></div>
     <div class="span8"><%= policy.harvest_method %></div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Opt Out Required:</strong></div>
+    <div class="span8">
+        <% unless policy.opt_out_required.nil? %>
+            <% if policy.opt_out_required %>
+                Yes
+            <% else %>
+                No
+            <% end %>
+        <% end %>
+    </div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Should Request Opt Out Papers:</strong></div>
+    <div class="span8">
+        <% unless policy.should_request.nil? %>
+            <% if policy.should_request %>
+                Yes
+            <% else %>
+                No
+            <% end %>
+        <% end %>
+    </div>
+</div>
+<div class="row-fluid policy-row">
+    <div class="span4"><strong>Special Message:</strong></div>
+    <div class="span8"><%= policy.message %></div>
 </div>
 <div class="row-fluid policy-row">
     <div class="span4"><strong>Notes:</strong></div>

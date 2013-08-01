@@ -15,24 +15,28 @@
 
     <% @journals.each do |journal| %>
         <% if journal.policy %>
-            <div class="policy-box span9">
-                <h4><%= link_to journal.name, journal_path(journal) %></h4>
-                <div class="row-fluid policy-row">
-                    <div class="span4"><strong>Type:</strong></div>
-                    <div class="span8">Journal Policy</div>
+            <div class="row-fluid">
+                <div class="policy-box span12">
+                    <h4><%= link_to journal.name, journal_path(journal) %></h4>
+                    <div class="row-fluid policy-row">
+                        <div class="span4"><strong>Type:</strong></div>
+                        <div class="span8">Journal Policy</div>
+                    </div>
+                    <%= render :partial => "policy", :object => journal.policy %>
                 </div>
-                <%= render :partial => "policy", :object => journal.policy %>
             </div>
         <% elsif journal.publisher.policy %>
             <div class="alert">No journal policy for <%= journal.name %>. Showing
                 active publisher policy.</div>
-            <div class="policy-box span9">
-                <h4><%= link_to journal.publisher.name, publisher_path(journal.publisher) %></h4>
-                <div class="row-fluid policy-row">
-                    <div class="span4"><strong>Type:</strong></div>
-                    <div class="span8">Publisher Policy</div>
+            <div class="row-fluid">
+                <div class="policy-box span12">
+                    <h4><%= link_to journal.publisher.name, publisher_path(journal.publisher) %></h4>
+                    <div class="row-fluid policy-row">
+                        <div class="span4"><strong>Type:</strong></div>
+                        <div class="span8">Publisher Policy</div>
+                    </div>
+                    <%= render :partial => "policy", :object => journal.publisher.policy %>
                 </div>
-                <%= render :partial => "policy", :object => journal.publisher.policy %>
             </div>
         <% else %>
             <div class="alert alert-error">No active journal or publisher policy for

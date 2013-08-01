@@ -7,6 +7,9 @@ class CreatePolicies < ActiveRecord::Migration
             t.text :requirements
             t.boolean :harvestable
             t.string :harvest_method # Individual, Author
+            t.boolean :opt_out_required
+            t.boolean :should_request
+            t.text :message
             t.references :policyable, :polymorphic => true
             t.timestamps
         end

@@ -33,10 +33,10 @@ class PublishersController < ApplicationController
   #   end
   # end
 
-  # # GET /publishers/1/edit
-  # def edit
-  #   @publisher = Publisher.find(params[:id])
-  # end
+  # GET /publishers/1/edit
+  def edit
+    @publisher = Publisher.find(params[:id])
+  end
 
   # # POST /publishers
   # # POST /publishers.json
@@ -54,21 +54,21 @@ class PublishersController < ApplicationController
   #   end
   # end
 
-  # # PUT /publishers/1
-  # # PUT /publishers/1.json
-  # def update
-  #   @publisher = Publisher.find(params[:id])
+  # PUT /publishers/1
+  # PUT /publishers/1.json
+  def update
+    @publisher = Publisher.find(params[:id])
 
-  #   respond_to do |format|
-  #     if @publisher.update_attributes(params[:publisher])
-  #       format.html { redirect_to @publisher, :notice => 'Publisher was successfully updated.' }
-  #       format.json { head :no_content }
-  #     else
-  #       format.html { render :action => "edit" }
-  #       format.json { render :json => @publisher.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
+    respond_to do |format|
+      if @publisher.update_attributes(params[:publisher])
+        format.html { redirect_to edit_publisher_path(@publisher), :notice => 'Publisher was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => @publisher.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 
   # # DELETE /publishers/1
   # # DELETE /publishers/1.json

@@ -39,10 +39,13 @@ ActiveRecord::Schema.define(:version => 20130725170149) do
     t.text     "requirements"
     t.boolean  "harvestable"
     t.string   "harvest_method"
+    t.boolean  "opt_out_required"
+    t.boolean  "should_request"
+    t.text     "message"
     t.integer  "policyable_id"
     t.string   "policyable_type"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "policies", ["policyable_id"], :name => "index_policies_on_policyable_id"
@@ -55,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20130725170149) do
   end
 
   create_table "ref_types", :force => true do |t|
-    t.string   "type"
+    t.string   "type_name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
