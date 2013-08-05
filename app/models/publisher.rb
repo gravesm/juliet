@@ -9,4 +9,11 @@ class Publisher < ActiveRecord::Base
         includes(:entity_refs).where(
             "entity_refs.refvalue LIKE ? OR publishers.name LIKE ?", name, name)
     end
+
+    searchable do
+        text :name
+        text :entity_refs do
+            entity_refs.map(&:refvalue)
+        end
+    end
 end

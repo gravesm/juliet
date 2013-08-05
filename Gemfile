@@ -44,6 +44,8 @@ gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'factory_girl_rails'
 gem 'ejs'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 group :development, :test do
     gem 'rspec-rails', '~> 2.0'
