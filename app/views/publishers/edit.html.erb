@@ -41,7 +41,7 @@
                     $("#add_alias").val("");
                     $(".alias-input").append(JST['templates/alias_input']({
                         refvalue: data.refvalue,
-                        url: "/publisher/<%= @publisher.id %>/entity_refs/" + data.id
+                        url: "/publishers/<%= @publisher.id %>/entity_refs/" + data.id
                     }));
                     $("#add_dialog").modal("hide");
                 }).fail(function() {
