@@ -12,7 +12,7 @@ describe "Journals" do
                 fill_in "journal_name", with: "Frobber"
             end
             click_button "Update Journal"
-            expect(find_field("journal_name").value).to eq("Frobber")
+            expect(find("h1").text).to eq("Frobber")
         end
 
         it "deletes an existing alias", js: true do

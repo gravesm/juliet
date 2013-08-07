@@ -61,7 +61,7 @@ class JournalsController < ApplicationController
 
     respond_to do |format|
       if @journal.update_attributes(params[:journal])
-        format.html { redirect_to edit_journal_path(@journal), :notice => 'Journal was successfully updated.' }
+        format.html { redirect_to journal_path(@journal), :notice => 'Journal was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }

@@ -1,6 +1,8 @@
 
 <h1><%= @publisher.name %></h1>
 
+<p><a href="<%= edit_publisher_path(@publisher) %>" class="btn">Edit</a></p>
+
 <div class="row-fluid">
     <% if @publisher.policy %>
         <div class="policy-box span9">

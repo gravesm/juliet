@@ -1,6 +1,8 @@
 
 <h1><%= @journal.name %></h1>
 
+<p><a href="<%= edit_journal_path(@journal) %>" class="btn">Edit</a></p>
+
 <div class="row-fluid">
     <% if @journal.policy %>
         <div class="policy-box span9">
