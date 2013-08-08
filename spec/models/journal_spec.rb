@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Journal do
     it "must have a canonical name" do
         expect(FactoryGirl.build :journal, name: nil).to have(1).error_on(:name)
@@ -27,5 +25,10 @@ describe Journal do
     it "returns a journal by name" do
         j = FactoryGirl.create :journal, name: "Scratching Post Digest"
         expect(Journal.by_name("scratching post digest").first).to eq(j)
+    end
+
+    it "has a policy" do
+        j = FactoryGirl.create :journal
+        expect(j.policy.contact).to eq("Captain Figglesworth, Esq.")
     end
 end

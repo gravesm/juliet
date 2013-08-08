@@ -2,6 +2,7 @@ FactoryGirl.define do
     factory :journal, class: "Journal" do
         name "Journal of Feline Whisker Weaving"
         publisher
+        policy
 
         trait :with_alias do
             after(:create) do |j|
