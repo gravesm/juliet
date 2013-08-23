@@ -44,6 +44,8 @@ gem 'execjs'
 gem 'therubyracer', :platforms => :ruby
 gem 'factory_girl_rails'
 gem 'ejs'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
 
 group :development, :test do
     gem 'rspec-rails', '~> 2.0'
@@ -53,4 +55,5 @@ group :test do
     gem 'capybara'
     gem 'database_cleaner', "<=1.0.1" # 1.1.0 is broken
     gem 'selenium-webdriver', '~> 2.34.0'
+    gem 'sunspot_matchers'
 end
