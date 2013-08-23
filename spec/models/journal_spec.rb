@@ -31,4 +31,12 @@ describe Journal do
         j = FactoryGirl.create :journal
         expect(j.policy.contact).to eq("Captain Figglesworth, Esq.")
     end
+
+    it "has searchable name field" do
+        expect(Journal).to have_searchable_field(:name)
+    end
+
+    it "has searchable entity_refs field" do
+        expect(Journal).to have_searchable_field(:entity_refs)
+    end
 end

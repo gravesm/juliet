@@ -2,8 +2,15 @@ class JournalsController < ApplicationController
   # GET /journals
   # GET /journals.json
   def index
-    page = params[:page] || 1
-    @journals = Journal.order("name").page(page)
+
+    if params[:query]
+      @journals = Journal.search do
+        fulltext params[:query]
+      end.results
+    else
+      page = params[:page] || 1
+      @journals = Journal.order("name").page(page)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
