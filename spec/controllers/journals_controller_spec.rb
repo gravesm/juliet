@@ -10,13 +10,6 @@ describe JournalsController do
 
             expect(assigns(:journals)).to match_array([journal1, journal2])
         end
-
-        it "searches using query parameter" do
-            get :index, query: "Catbotics"
-
-            expect(Sunspot.session).to be_a_search_for(Journal)
-            expect(Sunspot.session).to have_search_params(:fulltext, "Catbotics")
-        end
     end
 
     describe "show" do
