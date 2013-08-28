@@ -7,19 +7,15 @@
     </div>
 <% end %>
 
+<div class="center">
+    <strong><%= page_entries_info @results %></strong>
+</div>
+
 <div class="resource-listing">
 <% @results.each do |j| %>
     <div class="row-fluid">
-        <div class="span10">
+        <div class="span12">
             <%= link_to j.name, j %>
-        </div>
-        <div class="span2">
-            <div class="btn-group pull-right">
-                <%= link_to content_tag(:i, nil, class: "icon-pencil"),
-                    edit_journal_path(j), class: "btn btn-mini", title: "Edit" %>
-                <%= link_to content_tag(:i, nil, class: "icon-trash"),
-                    j, method: :delete, class: "btn btn-mini", title: "Delete" %>
-            </div>
         </div>
     </div>
 <% end %>
