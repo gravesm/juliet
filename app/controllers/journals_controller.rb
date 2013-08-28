@@ -4,15 +4,15 @@ class JournalsController < ApplicationController
   def index
 
     page = params[:page] || 1
+    query = params[:query] || ''
 
-    if params[:query]
-      searcher = Journal.search do
-        fulltext params[:query]
-      end
-      @journals = Kaminari.paginate_array(searcher.results).page(page)
-    else
-      @journals = Journal.order("name").page(page)
+    searcher = Journal.search do
+      fulltext query
+      paginate(:page => page, :per_page => 15)
     end
+
+    @results = Kaminari.paginate_array(
+        searcher.results, total_count: searcher.hits.total_count).page(page).per(15)
 
     respond_to do |format|
       format.html # index.html.erb
