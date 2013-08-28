@@ -1,16 +1,6 @@
 require 'spec_helper'
 
 describe JournalsController do
-    describe "index" do
-        it "creates an array of journals" do
-            journal1 = FactoryGirl.create :journal
-            journal2 = FactoryGirl.create :journal, name: "Foobar"
-
-            get :index
-
-            expect(assigns(:journals)).to match_array([journal1, journal2])
-        end
-    end
 
     describe "show" do
         it "returns the specified journal" do
