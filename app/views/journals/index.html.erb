@@ -1,5 +1,12 @@
 <h1>Journals</h1>
 
+<%= form_tag({:controller => "journals", :action => "index"}, :method => "get", :class => "form-search") do %>
+    <div class="input-append">
+        <%= text_field_tag :query, nil, :class => "search-query" %>
+        <%= button_tag "Search", :type => "submit", :class => "btn", :name => nil %>
+    </div>
+<% end %>
+
 <div class="resource-listing">
 <% @journals.each do |j| %>
     <div class="row-fluid">

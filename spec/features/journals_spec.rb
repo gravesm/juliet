@@ -1,6 +1,28 @@
 
 describe "Journals" do
 
+    context "when searched" do
+
+        it "returns matching items" do
+
+            Journal.stub(:search) do
+                j1 = FactoryGirl.create :journal, name: "Morlock"
+                j2 = FactoryGirl.create :journal, name: "Tarzan"
+                double :searcher, :results => [j1, j2]
+            end
+
+            visit journals_path
+
+            fill_in "query", with: "Martian Overmind"
+            click_button "Search"
+
+            expect(page).to have_content("Morlock")
+            expect(page).to have_content("Tarzan")
+        end
+    end
+
+
+
     describe "Edit" do
 
         it "updates journal attributes" do

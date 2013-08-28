@@ -3,12 +3,14 @@ class JournalsController < ApplicationController
   # GET /journals.json
   def index
 
+    page = params[:page] || 1
+
     if params[:query]
-      @journals = Journal.search do
+      searcher = Journal.search do
         fulltext params[:query]
-      end.results
+      end
+      @journals = Kaminari.paginate_array(searcher.results).page(page)
     else
-      page = params[:page] || 1
       @journals = Journal.order("name").page(page)
     end
 
