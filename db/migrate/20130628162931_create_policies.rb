@@ -5,8 +5,7 @@ class CreatePolicies < ActiveRecord::Migration
             t.text :note
             t.integer :embargo
             t.text :requirements
-            t.boolean :harvestable
-            t.string :harvest_method # Individual, Author
+            t.string :method_of_acquisition
             t.boolean :opt_out_required
             t.boolean :should_request
             t.text :message

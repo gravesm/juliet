@@ -7,20 +7,8 @@
     <div class="span8"><%= policy.embargo %></div>
 </div>
 <div class="row-fluid policy-row">
-    <div class="span4"><strong>Permission to Harvest:</strong></div>
-    <div class="span8">
-        <% unless policy.harvestable.nil? %>
-            <% if policy.harvestable %>
-                Yes
-            <% else %>
-                No
-            <% end %>
-        <% end %>
-    </div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span4"><strong>Method of Harvest:</strong></div>
-    <div class="span8"><%= policy.harvest_method %></div>
+    <div class="span4"><strong>Method of Acquisition</strong></div>
+    <div class="span8"><%= policy.method_of_acquisition %></div>
 </div>
 <div class="row-fluid policy-row">
     <div class="span4"><strong>Opt Out Required:</strong></div>
