@@ -15,6 +15,9 @@ class Journal < ActiveRecord::Base
 
     searchable do
         text :name
+        string :name_sortable do
+            name.downcase.gsub(/^the/, '').strip
+        end
         text :entity_refs do
             entity_refs.map(&:refvalue)
         end

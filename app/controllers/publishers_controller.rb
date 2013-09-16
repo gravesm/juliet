@@ -7,6 +7,9 @@ class PublishersController < ApplicationController
         searcher = Publisher.search do
             fulltext query
             paginate(:page => page, :per_page => 15)
+
+            order_by(:score, :desc)
+            order_by(:name_sortable, :asc)
         end
 
         @results = Kaminari.paginate_array(
