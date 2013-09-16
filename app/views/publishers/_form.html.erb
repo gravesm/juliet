@@ -1,10 +1,10 @@
-<%= form_for(@publisher, html: {class: "form-horizontal"}) do |f| %>
-  <% if @publisher.errors.any? %>
+<%= form_for(@refable, html: {class: "form-horizontal"}) do |f| %>
+  <% if @refable.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@publisher.errors.count, "error") %> prohibited this publisher from being saved:</h2>
+      <h2><%= pluralize(@refable.errors.count, "error") %> prohibited this publisher from being saved:</h2>
 
       <ul>
-      <% @publisher.errors.full_messages.each do |msg| %>
+      <% @refable.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -18,55 +18,8 @@
     </div>
   </div>
 
-  <fieldset>
-    <legend>Aliases</legend>
-    <div id="alias_message"></div>
-    <div class="alias-input">
-      <% @publisher.entity_refs.each do |ref| %>
-        <div class="control-group">
-          <div class="controls">
-            <span class="input-xlarge uneditable-input" title="<%= ref.refvalue %>">
-              <%= ref.refvalue %>
-            </span>
-            <button type="button" class="btn delete_alias" title="Delete alias"
-              data-url="<%= publisher_entity_ref_path @publisher, ref %>">
-              <i class="icon-trash"></i>
-            </button>
-          </div>
-        </div>
-      <% end %>
-    </div>
-    <div class="control-group">
-      <div class="controls">
-        <a href="#add_dialog" role="button" class="btn" data-toggle="modal">Add a new alias</a>
-      </div>
-    </div>
-  </fieldset>
-
   <div class="form-actions">
     <%= f.submit class: "btn btn-primary" %>
   </div>
 
 <% end %>
-
-<div id="add_dialog" class="modal hide fade" role="dialog">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-      &times;
-    </button>
-    <h3>Add an Alias</h3>
-  </div>
-  <div class="modal-body">
-    <div id="add_message"></div>
-    <div class="row-fluid">
-      <div class="span12">
-        <input type="text" id="add_alias" class="span8 offset2" />
-      </div>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <button class="btn" data-dismiss="modal">Cancel</button>
-    <button class="btn btn-primary" type="button" id="add_alias_button"
-      data-url="<%= publisher_entity_refs_path @publisher %>">Add Alias</button>
-  </div>
-</div>

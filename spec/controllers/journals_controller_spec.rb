@@ -8,7 +8,7 @@ describe JournalsController do
 
             get :show, id: journal
 
-            expect(assigns(:journal)).to eq(journal)
+            expect(assigns(:refable)).to eq(journal)
         end
     end
 
@@ -18,7 +18,7 @@ describe JournalsController do
 
             get :edit, id: journal
 
-            expect(assigns(:journal)).to eq(journal)
+            expect(assigns(:refable)).to eq(journal)
         end
     end
 
@@ -30,7 +30,7 @@ describe JournalsController do
         it "locates the requested journal" do
             put :update, id: @journal
 
-            expect(assigns(:journal)).to eq(@journal)
+            expect(assigns(:refable)).to eq(@journal)
         end
 
         it "changes a journal's attributes" do

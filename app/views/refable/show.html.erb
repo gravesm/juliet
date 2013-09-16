@@ -1,0 +1,34 @@
+<h1><%= @refable.name %></h1>
+
+<p>
+    <a href="<%= url_for(controller: controller_name, action: 'edit', id: @refable) %>"
+        class="btn">Edit</a>
+    <a href="<%= url_for([@refable, :entity_refs]) %>" class="btn">Manage Aliases</a>
+</p>
+
+<div class="row-fluid">
+    <% if @refable.policy %>
+        <div class="policy-box span9">
+            <h3><%= controller_name.singularize.humanize %> Policy</h3>
+            <%= render :partial => "search/policy", :object => @refable.policy %>
+        </div>
+    <% else %>
+        <div class="alert">No policy for this <%= controller_name.singularize %>.</div>
+    <% end %>
+</div>
+
+<% if @refable.respond_to?('publisher') %>
+    <h3>Publisher</h3>
+    <%= link_to @refable.publisher.name, publisher_path(@refable.publisher) %>
+<% end %>
+
+<h3>Aliases</h3>
+<% if @refable.entity_refs.empty? %>
+    <p>No aliases for this <%= controller_name.singularize %>.</p>
+<% else %>
+    <ul>
+        <% @refable.entity_refs.each do |ref| %>
+            <li><%= ref.refvalue %></li>
+        <% end %>
+    </ul>
+<% end %>

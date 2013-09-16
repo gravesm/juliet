@@ -9,7 +9,7 @@
             <div class="alert alert-error"><%= alert %></div>
         <% end %>
         <% if @refable.entity_refs.empty? %>
-            <div class="alert">There are no aliases for this journal</div>
+            <div class="alert">There are no aliases for this item</div>
         <% else %>
             <% @refable.entity_refs.each do |ref| %>
                 <div class="control-group">

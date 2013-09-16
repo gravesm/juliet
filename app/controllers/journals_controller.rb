@@ -15,7 +15,7 @@ class JournalsController < ApplicationController
         searcher.results, total_count: searcher.hits.total_count).page(page).per(15)
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { render 'refable/index' }
       # format.json { render :json => @journals }
     end
   end
@@ -23,10 +23,10 @@ class JournalsController < ApplicationController
   # GET /journals/1
   # GET /journals/1.json
   def show
-    @journal = Journal.find(params[:id])
+    @refable = Journal.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render 'refable/show' }
       # format.json { render :json => @journal }
     end
   end
@@ -44,7 +44,9 @@ class JournalsController < ApplicationController
 
   # GET /journals/1/edit
   def edit
-    @journal = Journal.find(params[:id])
+    @refable = Journal.find(params[:id])
+
+    render 'refable/edit'
   end
 
   # # POST /journals
@@ -66,15 +68,15 @@ class JournalsController < ApplicationController
   # PUT /journals/1
   # PUT /journals/1.json
   def update
-    @journal = Journal.find(params[:id])
+    @refable = Journal.find(params[:id])
 
     respond_to do |format|
-      if @journal.update_attributes(params[:journal])
-        format.html { redirect_to journal_path(@journal), :notice => 'Journal was successfully updated.' }
+      if @refable.update_attributes(params[:journal])
+        format.html { redirect_to journal_path(@refable), :notice => 'Journal was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @journal.errors, :status => :unprocessable_entity }
+        format.json { render :json => @refable.errors, :status => :unprocessable_entity }
       end
     end
   end
