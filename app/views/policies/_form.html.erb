@@ -1,0 +1,63 @@
+<%= form_for(@policy, html: { class: "form-horizontal" }) do |f| %>
+
+    <div class="control-group">
+        <%= f.label :contact, "Contact", class: "control-label" %>
+        <div class="controls">
+            <%= f.text_area :contact, { rows: 4, class: "span12" } %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :embargo, "Embargo", class: "control-label" %>
+        <div class="controls">
+            <div class="input-append">
+                <%= f.text_field :embargo, { size: nil, class: "span3" } %>
+                <span class="add-on">months</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :method_of_acquisition, "Method of Aquisition",
+                class: "control-label" %>
+        <div class="controls">
+            <%= f.select :method_of_acquisition, options_for_select([
+                    ['Harvest', 'HARVEST'], ['Individual download', 'INDIVIDUAL_DOWNLOAD'],
+                    ['Recruit from author', 'RECRUIT_FROM_AUTHOR'], ['Sword', 'SWORD']],
+                    @policy.method_of_acquisition) %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :note, "Note", class: "control-label" %>
+        <div class="controls">
+            <%= f.text_area :note, { rows: 4, class: "span12" } %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :opt_out_required, "Opt Out Required", class: "control-label" %>
+        <div class="controls">
+            <%= f.check_box :opt_out_required %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :should_request, "Should request opt out papers", class: "control-label" %>
+        <div class="controls">
+            <%= f.check_box :should_request %>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <%= f.label :message, "Special Message", class: "control-label" %>
+        <div class="controls">
+            <%= f.text_area :message, { rows: 4, class: "span12" } %>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <%= f.submit class: "btn btn-primary" %>
+    </div>
+
+<% end %>

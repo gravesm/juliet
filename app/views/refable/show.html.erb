@@ -2,7 +2,10 @@
 
 <p>
     <a href="<%= url_for(controller: controller_name, action: 'edit', id: @refable) %>"
-        class="btn">Edit</a>
+        class="btn">Edit <%= controller_name.singularize.humanize %></a>
+    <% if @refable.policy %>
+        <%= link_to "Edit Policy", edit_policy_path(@refable.policy), class: "btn" %>
+    <% end %>
     <a href="<%= url_for([@refable, :entity_refs]) %>" class="btn">Manage Aliases</a>
 </p>
 
@@ -29,6 +32,15 @@
     <ul>
         <% @refable.entity_refs.each do |ref| %>
             <li><%= ref.refvalue %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<% if @refable.respond_to?('journals') %>
+    <h3>Journals</h3>
+    <ul>
+        <% @refable.journals.each do |j| %>
+            <li><%= link_to j.name, j %></li>
         <% end %>
     </ul>
 <% end %>
