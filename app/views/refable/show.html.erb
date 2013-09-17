@@ -4,7 +4,13 @@
     <a href="<%= url_for(controller: controller_name, action: 'edit', id: @refable) %>"
         class="btn">Edit <%= controller_name.singularize.humanize %></a>
     <% if @refable.policy %>
-        <%= link_to "Edit Policy", edit_policy_path(@refable.policy), class: "btn" %>
+        <a href="<%= edit_polymorphic_path([@refable, @refable.policy]) %>" class="btn">
+            Edit Policy
+        </a>
+    <% else %>
+        <a href="<%= new_polymorphic_path([@refable, :policy]) %>" class="btn">
+            Add a Policy
+        </a>
     <% end %>
     <a href="<%= url_for([@refable, :entity_refs]) %>" class="btn">Manage Aliases</a>
 </p>

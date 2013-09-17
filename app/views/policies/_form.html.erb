@@ -1,4 +1,4 @@
-<%= form_for(@policy, html: { class: "form-horizontal" }) do |f| %>
+<%= form_for([@refable, @policy], html: { class: "form-horizontal" }) do |f| %>
 
     <div class="control-group">
         <%= f.label :contact, "Contact", class: "control-label" %>
