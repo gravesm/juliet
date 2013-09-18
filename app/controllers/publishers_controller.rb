@@ -28,6 +28,23 @@ class PublishersController < ApplicationController
         end
     end
 
+    def new
+        @refable = Publisher.new
+    end
+
+    def create
+        @refable = Publisher.new(params[:publisher])
+
+        respond_to do |format|
+            if @refable.save
+                format.html { redirect_to @refable, :notice => 'Publisher was successfully created.' }
+                format.json { render :json => @refable, :status => :created, :location => @refable }
+            else
+                format.html { render :action => "new" }
+                format.json { render :json => @refable.errors, :status => :unprocessable_entity }
+            end
+        end
+    end
 
     def edit
         @refable = Publisher.find(params[:id])

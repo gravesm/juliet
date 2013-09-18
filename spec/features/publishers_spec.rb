@@ -1,5 +1,18 @@
 describe "Publishers" do
 
+    describe "create" do
+
+        it "creates a new publisher" do
+
+            visit new_publisher_path
+
+            fill_in "Canonical Name", with: "Sassifrassypants"
+            click_button "Create Publisher"
+
+            expect(find("h1").text).to eq("Sassifrassypants")
+        end
+    end
+
     describe "Edit" do
 
         it "updates publisher attributes" do
