@@ -9,7 +9,7 @@
             <div class="alert alert-error"><%= alert %></div>
         <% end %>
         <% if @refable.entity_refs.empty? %>
-            <div class="alert">There are no aliases for this item</div>
+            <p class="muted">There are no aliases for this item</p>
         <% else %>
             <% @refable.entity_refs.each do |ref| %>
                 <div class="control-group">
@@ -32,3 +32,5 @@
         </div>
     </fieldset>
 <% end %>
+
+<%= link_to "Back to #{ @refable.name }", polymorphic_path(@refable) %>

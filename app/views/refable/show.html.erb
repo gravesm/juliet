@@ -1,52 +1,67 @@
-<h1><%= @refable.name %></h1>
+<h1><a class="btn" title="Edit <%= "#{ controller_name.singularize.humanize } info" %>"
+        href="<%= edit_polymorphic_path(@refable) %>">
+        <i class="icon-edit"></i>
+    </a>
+    <%= @refable.name %>
+</h1>
 
-<p>
-    <a href="<%= url_for(controller: controller_name, action: 'edit', id: @refable) %>"
-        class="btn">Edit <%= controller_name.singularize.humanize %></a>
-    <% if @refable.policy %>
-        <a href="<%= edit_polymorphic_path([@refable, @refable.policy]) %>" class="btn">
-            Edit Policy
-        </a>
-    <% else %>
-        <a href="<%= new_polymorphic_path([@refable, :policy]) %>" class="btn">
-            Add a Policy
-        </a>
-    <% end %>
-    <a href="<%= url_for([@refable, :entity_refs]) %>" class="btn">Manage Aliases</a>
-</p>
+<% if @refable.respond_to?('publisher') %>
+    <p>Published by <%= link_to @refable.publisher.name, publisher_path(@refable.publisher) %></p>
+<% end %>
 
 <div class="row-fluid">
     <% if @refable.policy %>
-        <div class="policy-box span9">
-            <h3><%= controller_name.singularize.humanize %> Policy</h3>
-            <%= render :partial => "search/policy", :object => @refable.policy %>
+        <div class="span12">
+            <div class="policy-box">
+                <h3><%= controller_name.singularize.humanize %> Policy
+                    <a class="btn btn-small pull-right" title="Edit policy"
+                        href="<%= edit_polymorphic_path([@refable, @refable.policy]) %>">
+                        <i class="icon-edit"></i>
+                    </a>
+                </h3>
+                <%= render :partial => "search/policy", :object => @refable.policy %>
+            </div>
         </div>
     <% else %>
-        <div class="alert">No policy for this <%= controller_name.singularize %>.</div>
+        <div class="span6">
+            <a href="<%= new_polymorphic_path([@refable, :policy]) %>"
+                title="Add a policy" class="alert-link">
+                <span class="alert">
+                    <span class="close"><i class="icon-edit"></i></span>
+                    No policy for this <%= controller_name.singularize %>.
+                </span>
+            </a>
+        </div>
     <% end %>
 </div>
 
-<% if @refable.respond_to?('publisher') %>
-    <h3>Publisher</h3>
-    <%= link_to @refable.publisher.name, publisher_path(@refable.publisher) %>
-<% end %>
-
-<h3>Aliases</h3>
-<% if @refable.entity_refs.empty? %>
-    <p>No aliases for this <%= controller_name.singularize %>.</p>
-<% else %>
-    <ul>
-        <% @refable.entity_refs.each do |ref| %>
-            <li><%= ref.refvalue %></li>
+<div class="row-fluid">
+    <div class="span4">
+        <h3><a class="btn btn-small"
+                href="<%= polymorphic_path([@refable, :entity_refs]) %>"
+                title="Add or delete aliases">
+                <i class="icon-edit"></i>
+            </a>
+            Aliases
+        </h3>
+        <% if @refable.entity_refs.empty? %>
+            <p class="muted">No aliases for this <%= controller_name.singularize %>.</p>
+        <% else %>
+            <ul>
+                <% @refable.entity_refs.each do |ref| %>
+                    <li><%= ref.refvalue %></li>
+                <% end %>
+            </ul>
         <% end %>
-    </ul>
-<% end %>
-
-<% if @refable.respond_to?('journals') %>
-    <h3>Journals</h3>
-    <ul>
-        <% @refable.journals.each do |j| %>
-            <li><%= link_to j.name, j %></li>
+    </div>
+    <div class="span8">
+        <% if @refable.respond_to?('journals') %>
+            <h3>Journals</h3>
+            <ul>
+                <% @refable.journals.each do |j| %>
+                    <li><%= link_to j.name, j %></li>
+                <% end %>
+            </ul>
         <% end %>
-    </ul>
-<% end %>
+    </div>
+</div>

@@ -79,3 +79,19 @@ body {
     border: 1px solid #033e6b;
     color: #ffffff;
 }
+
+h1 .btn, h3 .btn {
+    margin-bottom: 5px;
+}
+
+.alert-link .alert {
+    display: block;
+}
+
+.alert-link .alert:hover {
+    border-color: #c09853;
+}
+
+.alert-link:hover {
+    text-decoration: none;
+}

@@ -2,4 +2,4 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @refable %>
+<%= link_to "Back to #{ @refable.name }", polymorphic_path(@refable) %>
