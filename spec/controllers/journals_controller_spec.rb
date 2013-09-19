@@ -12,6 +12,47 @@ describe JournalsController do
         end
     end
 
+    describe "new" do
+
+        before :each do
+            @pub = FactoryGirl.create :publisher
+        end
+
+        it "renders the new view" do
+            get :new, publisher: @pub
+
+            expect(response).to render_template :new
+        end
+
+        it "assigns the publisher and refable variables" do
+            get :new, publisher: @pub
+
+            expect(assigns(:publisher)).to eq(@pub)
+            expect(assigns(:refable)).not_to be_nil
+        end
+    end
+
+    describe "create" do
+
+        before :each do
+            @pub = FactoryGirl.create :publisher
+            @journal = FactoryGirl.attributes_for(:journal).merge({ publisher_id: @pub })
+        end
+
+        it "creates a new journal" do
+            journal = FactoryGirl.attributes_for(:journal)
+
+            expect {
+                post :create, journal: @journal
+            }.to change(Journal, :count).by(1)
+        end
+
+        it "notifies user of successful journal creation" do
+            post :create, journal: @journal
+            expect(flash[:notice]).not_to be_nil
+        end
+    end
+
     describe "edit" do
         it "returns the specified journal" do
             journal = FactoryGirl.create :journal

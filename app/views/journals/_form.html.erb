@@ -1,4 +1,5 @@
 <%= form_for(@refable, html: {class: "form-horizontal"}) do |f| %>
+  <%= f.hidden_field(:publisher_id) %>
   <% if @refable.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@refable.errors.count, "error") %> prohibited this journal from being saved:</h2>

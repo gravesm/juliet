@@ -34,16 +34,25 @@ class JournalsController < ApplicationController
     end
   end
 
-  # GET /journals/new
-  # GET /journals/new.json
-  # def new
-  #   @journal = Journal.new
+  def new
+    @publisher = Publisher.find(params[:publisher])
+    @refable = Journal.new
+    @refable.publisher = @publisher
+  end
 
-  #   respond_to do |format|
-  #     format.html # new.html.erb
-  #     format.json { render :json => @journal }
-  #   end
-  # end
+  def create
+    @refable = Journal.new(params[:journal])
+
+    respond_to do |format|
+      if @refable.save
+        format.html { redirect_to @refable, :notice => 'Journal was successfully created.' }
+        format.json { render :json => @refable, :status => :created, :location => @refable }
+      else
+        format.html { render :action => "new" }
+        format.json { render :json => @refable.errors, :status => :unprocessable_entity }
+      end
+    end
+  end
 
   # GET /journals/1/edit
   def edit

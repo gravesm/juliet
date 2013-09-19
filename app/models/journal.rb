@@ -1,5 +1,5 @@
 class Journal < ActiveRecord::Base
-    attr_accessible :note, :name, :publisher
+    attr_accessible :note, :name, :publisher, :publisher_id
 
     has_many :entity_refs, as: :refable
     has_one :policy, :as => :policyable
