@@ -11,6 +11,7 @@ class EntityRefsController < ApplicationController
 
     respond_to do |format|
       if @entity_ref.save
+        Sunspot.index @refable
         format.html {
           redirect_to url_for([@refable, :entity_refs]),
           notice: "Alias #{ @entity_ref.refvalue } added."
@@ -29,6 +30,7 @@ class EntityRefsController < ApplicationController
   def destroy
     @entity_ref = EntityRef.find(params[:id])
     @entity_ref.destroy
+    Sunspot.index @refable
 
     respond_to do |format|
       format.html {
