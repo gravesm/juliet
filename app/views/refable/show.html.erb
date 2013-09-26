@@ -56,7 +56,13 @@
     </div>
     <div class="span8">
         <% if @refable.respond_to?('journals') %>
-            <h3>Journals</h3>
+            <h3>
+                <a class="btn btn-small" title="Add or delete journals"
+                    href="<%= new_journal_path(publisher: @refable.id) %>">
+                    <i class="icon-edit"></i>
+                </a>
+                Journals
+            </h3>
             <ul>
                 <% @refable.journals.each do |j| %>
                     <li><%= link_to j.name, j %></li>
