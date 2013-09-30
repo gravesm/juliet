@@ -1,24 +1,32 @@
-<h1><%= controller_name.humanize %></h1>
+<h1 class="text-center"><%= controller_name.humanize %></h1>
 
-<%= form_tag({}, :method => "get", :class => "form-search") do %>
-    <div class="input-append">
-        <%= text_field_tag :query, nil, :class => "search-query", :value => params[:query] %>
-        <%= button_tag "Search", :type => "submit", :class => "btn", :name => nil %>
-    </div>
-<% end %>
-
-<div class="center">
-    <strong><%= page_entries_info @results %></strong>
-</div>
-
-<div class="resource-listing">
-<% @results.each do |r| %>
-    <div class="row-fluid">
-        <div class="span12">
-            <%= link_to r.name, r %>
+<div class="row">
+    <%= form_tag({}, :method => "get") do %>
+        <div class="col-md-6 col-md-offset-3">
+            <div class="input-group">
+                <%= text_field_tag :query, nil, class: "form-control",
+                        value: params[:query] %>
+                <span class="input-group-btn">
+                    <%= button_tag "Search", type: "submit", name: nil,
+                            class: "btn btn-default" %>
+                </span>
+            </div>
         </div>
-    </div>
-<% end %>
+    <% end %>
 </div>
 
-<%= paginate @results %>
+<div class="row v-spaced">
+    <div class="col-md-8 col-md-offset-2">
+        <p class="text-center lead">
+            <%= page_entries_info @results %></p>
+        </p>
+
+        <div class="list-group">
+            <% @results.each do |r| %>
+                <%= link_to r.name, r, class: "list-group-item" %>
+            <% end %>
+        </div>
+
+        <div class="text-center"><%= paginate @results %></div>
+    </div>
+</div>

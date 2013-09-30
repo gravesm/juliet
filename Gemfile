@@ -38,7 +38,6 @@ gem 'jquery-rails'
 # To use debugger
 # gem 'ruby-debug'
 
-gem 'bootstrap-sass'
 gem 'kaminari'
 gem 'execjs'
 gem 'therubyracer', :platforms => :ruby

@@ -1,5 +1,5 @@
-<h2>Editing <%= controller_name.singularize %></h2>
+<div class="page-header text-center">
+    <h1>Editing <%= controller_name.singularize.capitalize %> <%= @refable.name %></h1>
+</div>
 
 <%= render 'form' %>
-
-<%= link_to "Back to #{ @refable.name }", polymorphic_path(@refable) %>

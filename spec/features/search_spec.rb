@@ -4,10 +4,9 @@ describe "Search" do
 
         visit root_path
 
-        within ".form-search" do
-            fill_in "query", with: "Binglewump"
-            click_button "Search"
-        end
+
+        fill_in "query", with: "Binglewump"
+        click_button "Search"
 
         expect(find(".policy-box")).to have_content("Captain Figglesworth, Esq.")
     end
@@ -17,10 +16,8 @@ describe "Search" do
 
         visit root_path
 
-        within ".form-search" do
-            fill_in "query", with: "Bojangles"
-            click_button "Search"
-        end
+        fill_in "query", with: "Bojangles"
+        click_button "Search"
 
         expect(find(".policy-box")).to have_content("Captain Figglesworth, Esq.")
     end
@@ -30,10 +27,8 @@ describe "Search" do
 
         visit root_path
 
-        within ".form-search" do
-            fill_in "query", with: "Zupercraften"
-            click_button "Search"
-        end
+        fill_in "query", with: "Zupercraften"
+        click_button "Search"
 
         expect(find(".alert")).to have_content("No journal policy")
     end

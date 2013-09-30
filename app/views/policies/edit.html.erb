@@ -1,5 +1,5 @@
-<h2>Editing policy for <i><%= @policy.policyable.name %></i></h2>
+<div class="page-header text-center">
+    <h1>Editing Policy for <%= @policy.policyable.name %></h1>
+</div>
 
 <%= render 'form' %>
-
-<%= link_to "Back to #{ @refable.name }", polymorphic_path(@refable) %>

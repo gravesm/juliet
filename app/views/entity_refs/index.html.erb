@@ -1,36 +1,44 @@
-<h1><%= @refable.name %></h1>
+<div class="page-header text-center">
+    <h1>Manage Aliases for <%= @refable.name %></h1>
+</div>
+
 <%= form_for :entity_ref, html: {class: "form-horizontal"} do |f| %>
-    <fieldset>
-        <legend>Aliases</legend>
-        <% if notice %>
-            <div class="alert alert-success"><%= notice %></div>
-        <% end %>
-        <% if alert %>
-            <div class="alert alert-error"><%= alert %></div>
-        <% end %>
-        <% if @refable.entity_refs.empty? %>
-            <p class="muted">There are no aliases for this item</p>
-        <% else %>
-            <% @refable.entity_refs.each do |ref| %>
-                <div class="control-group">
-                    <div class="controls">
-                        <span class="input-xlarge uneditable-input" title="<%= ref.refvalue %>">
+    <% if notice %>
+        <div class="alert alert-success"><%= notice %></div>
+    <% end %>
+    <% if alert %>
+        <div class="alert alert-danger"><%= alert %></div>
+    <% end %>
+    <% if @refable.entity_refs.empty? %>
+        <div class="well">There are no aliases for this item</div>
+    <% else %>
+        <% @refable.entity_refs.each do |ref| %>
+            <div class="form-group">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="input-group">
+                        <span class="disabled form-control" title="<%= ref.refvalue %>">
                             <%= ref.refvalue %>
                         </span>
-                        <%= link_to 'Delete', journal_entity_ref_path(@refable, ref),
-                            class: "btn", id: "id_entity_ref_#{ ref.id }", method: :delete %>
+                        <span class="input-group-btn">
+                            <%= link_to "Delete", polymorphic_path([@refable, ref]),
+                                class: "btn btn-primary", method: :delete %>
+                        </span>
                     </div>
                 </div>
-            <% end %>
-        <% end %>
-        <div class="control-group">
-            <%= f.label :refvalue, "Add a new alias:", class: "control-label" %>
-            <div class="controls">
-                <%= f.text_field :refvalue, class: "input-xlarge" %>
-                <button type="submit" class="btn btn-primary">Add</button>
             </div>
+        <% end %>
+    <% end %>
+    <div class="form-group">
+        <%= f.label :refvalue, "Add a new alias:", class: "control-label col-sm-3" %>
+        <div class="col-sm-6">
+            <%= f.text_field :refvalue, class: "form-control" %>
         </div>
-    </fieldset>
-<% end %>
+    </div>
 
-<%= link_to "Back to #{ @refable.name }", polymorphic_path(@refable) %>
+    <div class="form-group">
+        <div class="col-sm-6 col-sm-offset-3">
+            <button type="submit" class="btn btn-primary">Add</button>
+            <%= link_to "Cancel", polymorphic_path(@refable), class: "btn btn-default" %>
+        </div>
+    </div>
+<% end %>

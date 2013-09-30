@@ -5,7 +5,7 @@ describe SearchController do
 
             get :index, query: "Journal of Feline Whisker Weaving"
 
-            expect(assigns(:journals)).to match_array([journal])
+            expect(assigns(:journal)).to eq(journal)
         end
 
         it "creates an array of journals for case insensitive match" do
@@ -13,7 +13,7 @@ describe SearchController do
 
             get :index, query: "journal of feline whisker weaving"
 
-            expect(assigns(:journals)).to match_array([journal])
+            expect(assigns(:journal)).to eq(journal)
         end
 
         it "does not do partial matching" do
@@ -21,7 +21,7 @@ describe SearchController do
 
             get :index, query: "Feline"
 
-            expect(assigns(:journals)).to be_empty
+            expect(assigns(:journal)).to be_nil
         end
     end
 end

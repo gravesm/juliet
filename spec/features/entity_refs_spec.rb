@@ -29,7 +29,7 @@ describe "EntityRefs" do
         fill_in("Add a new alias:", with: "Aarnifumple")
         click_button("Add")
 
-        expect(page).to have_selector(".alert-error")
+        expect(page).to have_selector(".alert-danger")
     end
 
     it "deletes an existing alias for a journal" do
@@ -37,7 +37,7 @@ describe "EntityRefs" do
         e_ref = FactoryGirl.create(:entity_ref, refable: journal, refvalue: "Cambertumph")
 
         visit journal_entity_refs_url(journal)
-        click_link("id_entity_ref_#{ e_ref.id }")
+        click_link("Delete")
 
         expect(page).to have_content("Alias Cambertumph deleted")
         expect(page).to have_no_selector("id_entity_ref_#{ e_ref.id }")

@@ -1,44 +1,29 @@
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Contact:</strong></div>
-    <div class="span9"><%= policy.contact %></div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Embargo:</strong></div>
-    <div class="span9"><%= policy.embargo %></div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Method of Acquisition:</strong></div>
-    <div class="span9"><%= policy.method_of_acquisition.humanize %></div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Opt Out Required:</strong></div>
-    <div class="span9">
-        <% unless policy.opt_out_required.nil? %>
-            <% if policy.opt_out_required %>
-                Yes
-            <% else %>
-                No
+<div class="policy-box">
+    <h4>Policy for <%= link_to policy.policyable.name, polymorphic_path(policy.policyable) %></h4>
+    <dl class="dl-horizontal">
+        <dt>Type</dt>
+        <dd><%= policy.policyable_type %> Policy</dd>
+        <dt>Contact</dt>
+        <dd><%= policy.contact %></dd>
+        <dt>Embargo</dt>
+        <dd><%= policy.embargo %></dd>
+        <dt>Method of Acquisition</dt>
+        <dd><%= policy.method_of_acquisition.humanize %></dd>
+        <dt>Opt-out Required</dt>
+        <dd>
+            <% unless policy.opt_out_required.nil? %>
+                <%= policy.opt_out_required ? 'Yes' : 'No' %>
             <% end %>
-        <% end %>
-    </div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Should Request Opt Out Papers:</strong></div>
-    <div class="span9">
-        <% unless policy.should_request.nil? %>
-            <% if policy.should_request %>
-                Yes
-            <% else %>
-                No
+        </dd>
+        <dt title="Should Request Opt-out Papers">Should Request Opt-out Papers</dt>
+        <dd>
+            <% unless policy.should_request.nil? %>
+                <%= policy.should_request ? 'Yes' : 'No' %>
             <% end %>
-        <% end %>
-    </div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Special Message:</strong></div>
-    <div class="span9"><%= policy.message %></div>
-</div>
-<div class="row-fluid policy-row">
-    <div class="span3"><strong>Notes:</strong></div>
-    <div class="span9"><%= policy.note %></div>
+        </dd>
+        <dt>Special Message</dt>
+        <dd><%= policy.message %></dd>
+        <dt>Notes</dt>
+        <dd><%= policy.note %></dd>
+    </dl>
 </div>

@@ -1,13 +1,21 @@
-@import "bootstrap";
-@import "bootstrap-responsive";
-
 body {
     padding-top: 60px;
-    padding-bottom: 50px;
 }
 
-.center {
-    text-align: center;
+.v-spaced {
+    margin-top: 20px;
+}
+
+.panel-list li {
+    margin: 3px 0;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.panel-list li:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: 0;
 }
 
 .resource-listing {
