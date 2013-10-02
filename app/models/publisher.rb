@@ -5,6 +5,8 @@ class Publisher < ActiveRecord::Base
     has_one :policy, :as => :policyable
     has_many :journals
 
+    validates :name, presence: true, uniqueness: { case_sensitivity: false }
+
     def self.by_name(name)
         includes(:entity_refs).where(
             "entity_refs.refvalue LIKE ? OR publishers.name LIKE ?", name, name)
