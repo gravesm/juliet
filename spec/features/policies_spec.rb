@@ -42,4 +42,62 @@ describe "Policies" do
             expect(page).to have_content("Publisher Policy")
         end
     end
+
+    describe "SHERPA lookup" do
+
+        before :each do
+            @uri = /http:\/\/www\.sherpa\.ac\.uk.*/
+            @pub = FactoryGirl.create :publisher
+            @pub_response = %q(
+                <romeo>
+                    <publishers>
+                        <publisher><name>Wiggle</name></publisher>
+                        <publisher><name>Wumple</name></publisher>
+                    </publishers>
+                </romeo>)
+        end
+
+        WebMock.disable_net_connect!(:allow_localhost => true)
+
+        it "displays multiple publisher policies", js: true do
+            stub_request(:any, @uri).to_return(
+                body: @pub_response)
+
+            visit new_polymorphic_path([@pub, :policy])
+
+            expect(page).to have_content("Wiggle")
+            expect(page).to have_content("Wumple")
+        end
+
+        it "makes followup requests for journals with no publisher", js: true do
+            stub_request(:any, @uri).to_return(
+                body: %q(
+                    <romeo>
+                        <journals>
+                            <journal>
+                                <jtitle>Fee</jtitle>
+                                <romeopub>Fee</romeopub>
+                                <zetocpub>Fee</zetocpub>
+                            </journal>
+                            <journal>
+                                <jtitle>Fi</jtitle>
+                                <romeopub>Fi</romeopub>
+                                <zetocpub>Fi</zetocpub>
+                            </journal>
+                        </journals>
+                    </romeo>), body: @pub_response)
+
+            visit new_polymorphic_path([@pub, :policy])
+
+            expect(page).to have_content("Wiggle")
+        end
+
+        it "displays a message when no policies are found", js: true do
+            stub_request(:any, @uri)
+
+            visit new_polymorphic_path([@pub, :policy])
+
+            expect(page).to have_content("No matching policies found")
+        end
+    end
 end

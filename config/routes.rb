@@ -1,6 +1,8 @@
 Pubeng::Application.routes.draw do
 
   match 'search', :controller => 'search', :action => 'index'
+  match ':refable/:id/lookup' => 'proxy#fetch', refable: /journals|publishers/,
+    as: :proxy, via: :get
 
   root :to => 'search#index'
 

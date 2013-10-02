@@ -92,14 +92,18 @@ h1 .btn, h3 .btn {
     margin-bottom: 5px;
 }
 
-.alert-link .alert {
-    display: block;
+.romeo-green {
+    background-color: #dff0d8;
 }
 
-.alert-link .alert:hover {
-    border-color: #c09853;
+.romeo-blue {
+    background-color: #d9edf7;
 }
 
-.alert-link:hover {
-    text-decoration: none;
+.romeo-yellow {
+    background-color: #fcf8e3;
+}
+
+.romeo-gray {
+    background-color: #f5f5f5;
 }
