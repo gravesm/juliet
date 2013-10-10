@@ -3,3 +3,7 @@
 </div>
 
 <%= render 'form' %>
+
+<div class="v-spaced">
+    <%= link_to "Back to #{@refable.name}", polymorphic_path(@refable) %>
+</div>

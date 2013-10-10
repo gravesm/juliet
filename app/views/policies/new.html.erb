@@ -21,7 +21,17 @@
                     ctx['conditions'].push($(this).text());
                 });
 
-                $("#sherpa-policies").append(tmpl(ctx));
+                $("#sherpa-policies").append( tmpl(ctx) ).find("li").each(
+                    /**
+                     * Special effort is required to turn links and such into
+                     * HTML elements.
+                     */
+                    function() {
+                        $(this).html(
+                            $.parseHTML( $(this).text() )
+                        );
+                    })
+                ;
             }
 
             $.get(url).done(function(data) {
@@ -123,4 +133,8 @@
             <span id="policy-loading"><em>Looking for policies...</em></span>
         </div>
     </div>
+</div>
+
+<div class="v-spaced">
+    <%= link_to "Back to #{@refable.name}", polymorphic_path(@refable) %>
 </div>
