@@ -51,13 +51,28 @@ describe "Policies" do
             @pub_response = %q(
                 <romeo>
                     <publishers>
-                        <publisher><name>Wiggle</name></publisher>
+                        <publisher>
+                            <name>Wiggle</name>
+                            <conditions>
+                                <condition>you may deposit in
+                                    &lt;a&gt;Wimplenuck&lt;/a&gt; after 6 months</condition>
+                            </conditions>
+                        </publisher>
                         <publisher><name>Wumple</name></publisher>
                     </publishers>
                 </romeo>)
         end
 
         WebMock.disable_net_connect!(:allow_localhost => true)
+
+        it "turns escaped elements into DOM nodes", js: true do
+            stub_request(:any, @uri).to_return(
+                body: @pub_response)
+
+            visit new_polymorphic_path([@pub, :policy])
+
+            expect(page).to have_selector(:xpath, "//a[text()='Wimplenuck']")
+        end
 
         it "displays multiple publisher policies", js: true do
             stub_request(:any, @uri).to_return(

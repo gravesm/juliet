@@ -54,5 +54,5 @@ group :test do
     gem 'webmock'
     gem 'capybara'
     gem 'database_cleaner', "<=1.0.1" # 1.1.0 is broken
-    gem 'selenium-webdriver', '~> 2.34.0'
+    gem 'poltergeist'
 end

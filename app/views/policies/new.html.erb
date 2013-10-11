@@ -21,17 +21,23 @@
                     ctx['conditions'].push($(this).text());
                 });
 
-                $("#sherpa-policies").append( tmpl(ctx) ).find("li").each(
+                $("#sherpa-policies").append( function() {
                     /**
                      * Special effort is required to turn links and such into
                      * HTML elements.
                      */
-                    function() {
-                        $(this).html(
-                            $.parseHTML( $(this).text() )
-                        );
-                    })
-                ;
+                    var $tmpl = $(tmpl(ctx));
+
+                    $tmpl.find("li").each(
+
+                        function() {
+                            $(this).html(
+                                $.parseHTML( $(this).text() )
+                            );
+                        }
+                    );
+                    return $tmpl;
+                });
             }
 
             $.get(url).done(function(data) {
