@@ -46,6 +46,11 @@
                 </div>
             <% end %>
         </div>
+        <% if @refable.respond_to?('publisher') and @refable.publisher.policy %>
+            <div class="v-spaced">
+                <%= render :partial => "search/policy", :object => @refable.publisher.policy %>
+            </div>
+        <% end %>
         <div class="row v-spaced">
             <div class="col-md-6">
                 <div class="panel panel-default">
