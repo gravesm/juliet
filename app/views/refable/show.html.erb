@@ -1,9 +1,11 @@
+<% render 'policies/sherpa' %>
+
 <div class="page-header text-center">
     <h1><%= @refable.name %></h1>
 </div>
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8">
         <div class="text-center">
             <% if @refable.respond_to?('publisher') %>
                 <h2>Published by <%= link_to @refable.publisher.name, publisher_path(@refable.publisher) %></h2>
@@ -44,48 +46,51 @@
                 </div>
             <% end %>
         </div>
-    </div>
-</div>
-
-<div class="row v-spaced">
-    <div class="col-md-10 col-md-offset-1">
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Aliases</h3>
-                </div>
-                <div class="panel-body">
-                    <% if @refable.entity_refs.empty? %>
-                        <p class="text-muted">No aliases for this <%= controller_name.singularize %>.</p>
-                    <% else %>
-                        <ul class="list-unstyled panel-list">
-                            <% @refable.entity_refs.each do |ref| %>
-                                <li><%= ref.refvalue %></li>
-                            <% end %>
-                        </ul>
-                    <% end %>
-                </div>
-            </div>
-        </div>
-        <% if @refable.respond_to?('journals') %>
+        <div class="row v-spaced">
             <div class="col-md-6">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Journals</h3>
+                        <h3 class="panel-title">Aliases</h3>
                     </div>
                     <div class="panel-body">
-                        <% if @refable.journals.empty? %>
-                            <p class="text-muted">No journals for this publisher.</p>
+                        <% if @refable.entity_refs.empty? %>
+                            <p class="text-muted">No aliases for this <%= controller_name.singularize %>.</p>
                         <% else %>
-                            <ul class="panel-list list-unstyled">
-                                <% @refable.journals.each do |j| %>
-                                    <li><%= link_to j.name, j %></li>
+                            <ul class="list-unstyled panel-list">
+                                <% @refable.entity_refs.each do |ref| %>
+                                    <li><%= ref.refvalue %></li>
                                 <% end %>
                             </ul>
                         <% end %>
                     </div>
                 </div>
             </div>
-        <% end %>
+            <% if @refable.respond_to?('journals') %>
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Journals</h3>
+                        </div>
+                        <div class="panel-body">
+                            <% if @refable.journals.empty? %>
+                                <p class="text-muted">No journals for this publisher.</p>
+                            <% else %>
+                                <ul class="panel-list list-unstyled">
+                                    <% @refable.journals.each do |j| %>
+                                        <li><%= link_to j.name, j %></li>
+                                    <% end %>
+                                </ul>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h4 class="text-center">Matching SHERPA/RoMEO Policies</h4>
+        <div id="sherpa-policies">
+            <span id="policy-loading"><em>Looking for policies...</em></span>
+        </div>
     </div>
 </div>

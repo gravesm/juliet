@@ -1,0 +1,126 @@
+<% content_for :script do %>
+    <script type="text/javascript">
+        $(function() {
+
+            var url = '<%= proxy_path(refable: @refable.class.name.downcase.pluralize, id: @refable.id) %>';
+
+            var tmpl = Mustache.compile($("#policy-tmpl").text());
+
+            function sherpa_handler() {
+                $("#policy-loading").hide();
+
+                var ctx = {};
+
+                ctx['publisher'] = $(this).find("name").text();
+                ctx['color'] = $(this).find("romeocolour").text();
+                ctx['preprint'] = $(this).find("prearchiving").text();
+                ctx['postprint'] = $(this).find("postarchiving").text();
+                ctx['pdf'] = $(this).find("pdfarchiving").text();
+                ctx['conditions'] = [];
+                $(this).find("condition").each(function() {
+                    ctx['conditions'].push($(this).text());
+                });
+
+                $("#sherpa-policies").append( function() {
+                    /**
+                     * Special effort is required to turn links and such into
+                     * HTML elements.
+                     */
+                    var $tmpl = $(tmpl(ctx));
+
+                    $tmpl.find("li").each(
+
+                        function() {
+                            $(this).html(
+                                $.parseHTML( $(this).text() )
+                            );
+                        }
+                    );
+                    return $tmpl;
+                });
+            }
+
+            $.get(url).done(function(data) {
+                var $xml;
+
+                $xml = $(data);
+
+                /**
+                 * If there's a publisher, then either we have a successful
+                 * publisher search or a successful journal search with an exact
+                 * match (meaning there will be only one publisher).
+                 */
+                if ($xml.find("publisher").length) {
+
+                    $xml.find("publisher").each(sherpa_handler);
+
+                /**
+                 * If there is more than one journal, then we'll need to do
+                 * followup queries. If there's only one journal, then my
+                 * assumption is that if there's a known publisher for that
+                 * journal, then it should be in the publishers list. It's not
+                 * clear to me how a followup query would produce any new
+                 * information in this case.
+                 */
+                } else if ($xml.find("journal").length > 1) {
+                    $xml.find("journal").each(function() {
+                        var jtitle, romeopub, zetocpub;
+
+                        jtitle = $(this).find("jtitle").text();
+                        romeopub = $(this).find("romeopub").text();
+                        zetocpub = $(this).find("zetocpub").text();
+
+                        if (romeopub && zetocpub) {
+                            $.get(url, {
+                                jtitle: jtitle,
+                                romeopub: romeopub,
+                                zetocpub: zetocpub
+                            }).done(function(data) {
+                                $(data).find("publisher").each(sherpa_handler);
+                            });
+                        }
+                    });
+                } else {
+                    $("#sherpa-policies").text("No matching policies found.");
+                }
+            });
+
+        });
+    </script>
+
+    <script type="text/x-tmpl" id="policy-tmpl">
+        <div class="panel panel-default">
+            <div class="panel-heading">{{ publisher }}</div>
+            <table class="table">
+                <tbody>
+                    <tr class="romeo-{{ color }}">
+                        <th>Color</th>
+                        <td>{{ color }}</td>
+                    </tr>
+                    <tr>
+                        <th>Preprint</th>
+                        <td>{{ preprint }}</td>
+                    </tr>
+                    <tr>
+                        <th>Postprint</th>
+                        <td>{{ postprint }}</td>
+                    </tr>
+                    <tr>
+                        <th>Final</th>
+                        <td>{{ pdf }}</td>
+                    </tr>
+                    <tr>
+                        <th>General Conditions</th>
+                        <td>
+                            <ul>
+                                {{ #conditions }}
+                                    <li>{{ . }}</li>
+                                {{ /conditions }}
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </script>
+<% end %>

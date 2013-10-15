@@ -1,10 +1,18 @@
+<% render 'sherpa' %>
+
 <div class="page-header text-center">
     <h1>Editing Policy for <%= @policy.policyable.name %></h1>
 </div>
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8">
         <%= render 'form' %>
+    </div>
+    <div class="col-md-4">
+        <h4 class="text-center">Matching SHERPA/RoMEO Policies</h4>
+        <div id="sherpa-policies">
+            <span id="policy-loading"><em>Looking for policies...</em></span>
+        </div>
     </div>
 </div>
 
