@@ -22,6 +22,7 @@ class PublishersController < ApplicationController
 
     def show
         @refable = Publisher.find(params[:id])
+        @confirm = "This will permanently delete this publisher, its policy and all its journals and aliases. Are you sure you want to do this?"
 
         respond_to do |format|
             format.html { render 'refable/show' }
@@ -63,6 +64,16 @@ class PublishersController < ApplicationController
                 format.html { render :action => "edit" }
                 format.json { render :json => @refable.errors, :status => :unprocessable_entity }
             end
+        end
+    end
+
+    def destroy
+        @refable = Publisher.find(params[:id])
+        @refable.destroy
+
+        respond_to do |format|
+            format.html { redirect_to publishers_url }
+            format.json { head :no_content }
         end
     end
 end

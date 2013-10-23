@@ -23,4 +23,19 @@ describe Publisher do
         p = FactoryGirl.create :publisher
         expect(p.policy.contact).to eq("Captain Figglesworth, Esq.")
     end
+
+    it "deletes policy when publisher is deleted" do
+        p = FactoryGirl.create :publisher
+        expect { p.destroy }.to change(Policy, :count).by(-1)
+    end
+
+    it "deletes aliases when publisher is deleted" do
+        p = FactoryGirl.create :publisher, :with_alias
+        expect { p.destroy }.to change(EntityRef, :count).by(-1)
+    end
+
+    it "deletes journals when publisher is deleted" do
+        j = FactoryGirl.create :journal
+        expect { j.publisher.destroy }.to change(Journal, :count).by(-1)
+    end
 end

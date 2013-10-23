@@ -69,4 +69,21 @@ describe PublishersController do
             expect(@publisher.name).to eq("Stumplenick")
         end
     end
+
+    describe "destroy" do
+        before :each do
+            @pub = FactoryGirl.create :publisher
+        end
+
+        it "deletes the specified publisher" do
+            expect {
+                delete :destroy, id: @pub
+            }.to change(Publisher, :count).by(-1)
+        end
+
+        it "redirects to publishers list" do
+            delete :destroy, id: @pub
+            expect(response).to redirect_to(publishers_url)
+        end
+    end
 end

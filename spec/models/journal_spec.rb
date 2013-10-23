@@ -32,4 +32,14 @@ describe Journal do
         j = FactoryGirl.create :journal
         expect(j.policy.contact).to eq("Captain Figglesworth, Esq.")
     end
+
+    it "deletes policy when journal is deleted" do
+        j = FactoryGirl.create :journal
+        expect { j.destroy }.to change(Policy, :count).by(-1)
+    end
+
+    it "deletes aliases when journal is deleted" do
+        j = FactoryGirl.create :journal, :with_alias
+        expect { j.destroy }.to change(EntityRef, :count).by(-1)
+    end
 end

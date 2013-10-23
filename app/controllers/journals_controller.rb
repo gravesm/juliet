@@ -27,6 +27,7 @@ class JournalsController < ApplicationController
   # GET /journals/1.json
   def show
     @refable = Journal.find(params[:id])
+    @confirm = "This will permanently delete this journal, its policy and all its aliases. Are you sure you want to do this?"
 
     respond_to do |format|
       format.html { render 'refable/show' }
@@ -93,15 +94,15 @@ class JournalsController < ApplicationController
     end
   end
 
-  # # DELETE /journals/1
-  # # DELETE /journals/1.json
-  # def destroy
-  #   @journal = Journal.find(params[:id])
-  #   @journal.destroy
+  # DELETE /journals/1
+  # DELETE /journals/1.json
+  def destroy
+    @refable = Journal.find(params[:id])
+    @refable.destroy
 
-  #   respond_to do |format|
-  #     format.html { redirect_to journals_url }
-  #     format.json { head :no_content }
-  #   end
-  # end
+    respond_to do |format|
+      format.html { redirect_to publisher_path(@refable.publisher) }
+      format.json { head :no_content }
+    end
+  end
 end

@@ -1,8 +1,8 @@
 class Journal < ActiveRecord::Base
     attr_accessible :note, :name, :publisher, :publisher_id
 
-    has_many :entity_refs, as: :refable
-    has_one :policy, :as => :policyable
+    has_many :entity_refs, as: :refable, :dependent => :destroy
+    has_one :policy, :as => :policyable, :dependent => :destroy
     belongs_to :publisher
 
     validates :publisher, presence: true

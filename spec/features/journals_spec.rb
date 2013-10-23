@@ -1,6 +1,10 @@
 
 describe "Journals" do
 
+    before :each do
+        stub_request(:any, /http:\/\/www\.sherpa\.ac\.uk.*/)
+    end
+
     describe "create" do
 
         it "creates a new journal" do
@@ -28,6 +32,22 @@ describe "Journals" do
             end
             click_button "Update Journal"
             expect(find("h1").text).to eq("Frobber")
+        end
+    end
+
+    describe "Delete" do
+        before :each do
+            @journal = FactoryGirl.create :journal
+        end
+
+        it "deletes a journal" do
+            visit journal_path(@journal)
+
+            expect {
+                click_link "Delete Journal"
+            }.to change(Journal, :count).by(-1)
+
+            expect(find("h1").text).to eq("Cat Arts")
         end
     end
 end

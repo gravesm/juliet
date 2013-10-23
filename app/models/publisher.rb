@@ -1,9 +1,9 @@
 class Publisher < ActiveRecord::Base
     attr_accessible :note, :name, :journals
 
-    has_many :entity_refs, :as => :refable
-    has_one :policy, :as => :policyable
-    has_many :journals
+    has_many :entity_refs, :as => :refable, :dependent => :destroy
+    has_one :policy, :as => :policyable, :dependent => :destroy
+    has_many :journals, :dependent => :destroy
 
     validates :name, presence: true, uniqueness: { case_sensitivity: false }
 

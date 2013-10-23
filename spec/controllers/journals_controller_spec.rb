@@ -83,5 +83,23 @@ describe JournalsController do
             expect(@journal.name).to eq("Thimblesticks")
         end
     end
+
+    describe "destroy" do
+        before :each do
+            @journal = FactoryGirl.create :journal
+        end
+
+        it "deletes the specified journal" do
+            expect {
+                delete :destroy, id: @journal
+            }.to change(Journal, :count).by(-1)
+        end
+
+        it "redirects to deleted journal's publisher" do
+            delete :destroy, id: @journal
+            expect(response).to redirect_to(publisher_path(@journal.publisher))
+        end
+    end
+
 end
 

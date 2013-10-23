@@ -36,6 +36,10 @@
                     </a>
                 <% end %>
             </div>
+            <%= link_to "Delete #{controller_name.singularize.humanize}",
+                    polymorphic_path(@refable), method: :delete,
+                    class: "btn btn-danger", confirm: @confirm
+            %>
         </div>
         <div class="v-spaced">
             <% if @refable.policy %>
