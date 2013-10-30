@@ -107,3 +107,22 @@ h1 .btn, h3 .btn {
 .romeo-gray {
     background-color: #f5f5f5;
 }
+
+.romeo-can .glyphicon:before {
+    content: "\e013";
+    color: #088a08;
+}
+
+.romeo-cannot .glyphicon:before {
+    content: "\e014";
+    color: #df0101;
+}
+
+.romeo-restricted .glyphicon:before {
+    content: "\e013";
+    color: #999;
+}
+
+.romeo-unclear .glyphicon:before {
+    content: "\e085";
+}
