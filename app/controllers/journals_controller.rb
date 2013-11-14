@@ -27,6 +27,7 @@ class JournalsController < ApplicationController
   # GET /journals/1.json
   def show
     @refable = Journal.find(params[:id])
+    @aliases = @refable.entity_refs.order(:refvalue)
     @confirm = "This will permanently delete this journal, its policy and all its aliases. Are you sure you want to do this?"
 
     respond_to do |format|

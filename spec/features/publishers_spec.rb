@@ -47,4 +47,33 @@ describe "Publishers" do
             expect(find("h1").text).to eq("Publishers")
         end
     end
+
+    describe "show" do
+
+        it "lists the journals in alphabetical order" do
+            pub = FactoryGirl.create :publisher
+            FactoryGirl.create(:journal, publisher: pub, name: "Frimble")
+            FactoryGirl.create(:journal, publisher: pub, name: "Brumble")
+
+            visit publisher_path(pub)
+
+            within(:xpath, "//div[./div/h3[text() = 'Journals']]") do
+                expect(all('li')[0].text).to eq("Brumble")
+                expect(all('li')[1].text).to eq("Frimble")
+            end
+        end
+
+        it "lists the aliases in alphabetical order" do
+            pub = FactoryGirl.create :publisher
+            a1 = FactoryGirl.create(:entity_ref, refable: pub, refvalue: "Mumbleruckus")
+            a2 = FactoryGirl.create(:entity_ref, refable: pub, refvalue: "Dimblethump")
+
+            visit publisher_path(pub)
+
+            within(:xpath, "//div[./div/h3[text() = 'Aliases']]") do
+                expect(all('li')[0].text).to eq("Dimblethump")
+                expect(all('li')[1].text).to eq("Mumbleruckus")
+            end
+        end
+    end
 end

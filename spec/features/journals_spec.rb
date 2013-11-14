@@ -50,4 +50,20 @@ describe "Journals" do
             expect(find("h1").text).to eq("Cat Arts")
         end
     end
+
+    describe "show" do
+
+        it "lists the aliases in alphabetical order" do
+            j = FactoryGirl.create :journal
+            a1 = FactoryGirl.create(:entity_ref, refable: j, refvalue: "Swamblethorn")
+            a2 = FactoryGirl.create(:entity_ref, refable: j, refvalue: "Phiphlemuck")
+
+            visit journal_path(j)
+
+            within(:xpath, "//div[./div/h3[text() = 'Aliases']]") do
+                expect(all('li')[0].text).to eq("Phiphlemuck")
+                expect(all('li')[1].text).to eq("Swamblethorn")
+            end
+        end
+    end
 end

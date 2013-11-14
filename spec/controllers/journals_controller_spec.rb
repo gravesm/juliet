@@ -10,6 +10,15 @@ describe JournalsController do
 
             expect(assigns(:refable)).to eq(journal)
         end
+
+        it "returns a sorted list of journal's aliases" do
+            j = FactoryGirl.create :journal
+            a1 = FactoryGirl.create(:entity_ref, refable: j, refvalue: "Gimbleberry")
+            a2 = FactoryGirl.create(:entity_ref, refable: j, refvalue: "Fringleton")
+
+            get :show, id: j
+            expect(assigns(:aliases)).to eq([a2, a1])
+        end
     end
 
     describe "new" do

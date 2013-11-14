@@ -22,6 +22,8 @@ class PublishersController < ApplicationController
 
     def show
         @refable = Publisher.find(params[:id])
+        @journals = @refable.journals.order(:name)
+        @aliases = @refable.entity_refs.order(:refvalue)
         @confirm = "This will permanently delete this publisher, its policy and all its journals and aliases. Are you sure you want to do this?"
 
         respond_to do |format|

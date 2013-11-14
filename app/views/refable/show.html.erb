@@ -62,11 +62,11 @@
                         <h3 class="panel-title">Aliases</h3>
                     </div>
                     <div class="panel-body">
-                        <% if @refable.entity_refs.empty? %>
+                        <% if @aliases.empty? %>
                             <p class="text-muted">No aliases for this <%= controller_name.singularize %>.</p>
                         <% else %>
                             <ul class="list-unstyled panel-list">
-                                <% @refable.entity_refs.each do |ref| %>
+                                <% @aliases.each do |ref| %>
                                     <li><%= ref.refvalue %></li>
                                 <% end %>
                             </ul>
@@ -74,18 +74,18 @@
                     </div>
                 </div>
             </div>
-            <% if @refable.respond_to?('journals') %>
+            <% if defined?(@journals) %>
                 <div class="col-md-6">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Journals</h3>
                         </div>
                         <div class="panel-body">
-                            <% if @refable.journals.empty? %>
+                            <% if @journals.empty? %>
                                 <p class="text-muted">No journals for this publisher.</p>
                             <% else %>
                                 <ul class="panel-list list-unstyled">
-                                    <% @refable.journals.each do |j| %>
+                                    <% @journals.each do |j| %>
                                         <li><%= link_to j.name, j %></li>
                                     <% end %>
                                 </ul>

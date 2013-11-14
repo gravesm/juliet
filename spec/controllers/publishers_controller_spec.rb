@@ -10,6 +10,24 @@ describe PublishersController do
 
             expect(assigns(:refable)).to eq(refable)
         end
+
+        it "returns a sorted list of publisher's journals" do
+            pub = FactoryGirl.create :publisher
+            j1 = FactoryGirl.create(:journal, publisher: pub, name: "Zumblelumb")
+            j2 = FactoryGirl.create(:journal, publisher: pub, name: "Bumbletumb")
+
+            get :show, id: pub
+            expect(assigns(:journals)).to eq([j2, j1])
+        end
+
+        it "returns a sorted list of publisher's aliases" do
+            pub = FactoryGirl.create :publisher
+            a1 = FactoryGirl.create(:entity_ref, refable: pub, refvalue: "Zoop")
+            a2 = FactoryGirl.create(:entity_ref, refable: pub, refvalue: "Zaap")
+
+            get :show, id: pub
+            expect(assigns(:aliases)).to eq([a2, a1])
+        end
     end
 
     describe "new" do
