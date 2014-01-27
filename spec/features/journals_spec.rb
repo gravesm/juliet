@@ -11,7 +11,7 @@ describe "Journals" do
 
             @pub = FactoryGirl.create :publisher
 
-            visit "/journals/new?publisher=#{@pub.id}"
+            visit create_journal_path(@pub)
 
             fill_in "Canonical Name", with: "Gumblenuffins"
             click_button "Create Journal"

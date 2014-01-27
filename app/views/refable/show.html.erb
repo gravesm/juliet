@@ -31,7 +31,7 @@
                 </a>
                 <% if @refable.respond_to?('journals') %>
                     <a class="btn btn-primary"
-                        href="<%= new_journal_path(publisher: @refable.id) %>">
+                        href="<%= new_journal_path %>">
                         Create Journal
                     </a>
                 <% end %>

@@ -28,13 +28,13 @@ describe JournalsController do
         end
 
         it "renders the new view" do
-            get :new, publisher: @pub
+            get :new, id: @pub
 
             expect(response).to render_template :new
         end
 
         it "assigns the publisher and refable variables" do
-            get :new, publisher: @pub
+            get :new, id: @pub
 
             expect(assigns(:publisher)).to eq(@pub)
             expect(assigns(:refable)).not_to be_nil
@@ -52,12 +52,12 @@ describe JournalsController do
             journal = FactoryGirl.attributes_for(:journal)
 
             expect {
-                post :create, journal: @journal
+                post :create, journal: @journal, id: @pub
             }.to change(Journal, :count).by(1)
         end
 
         it "notifies user of successful journal creation" do
-            post :create, journal: @journal
+            post :create, journal: @journal, id: @pub
             expect(flash[:notice]).not_to be_nil
         end
     end

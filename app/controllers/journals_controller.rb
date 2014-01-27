@@ -37,13 +37,15 @@ class JournalsController < ApplicationController
   end
 
   def new
-    @publisher = Publisher.find(params[:publisher])
+    @publisher = Publisher.find(params[:id])
     @refable = Journal.new
     @refable.publisher = @publisher
   end
 
   def create
+    @publisher = Publisher.find(params[:id])
     @refable = Journal.new(params[:journal])
+    @refable.publisher = @publisher
 
     respond_to do |format|
       if @refable.save

@@ -6,14 +6,18 @@ Pubeng::Application.routes.draw do
 
   root :to => 'search#index'
 
+  match 'publishers/:id/journal' => 'journals#new', via: :get, as: :new_journal
+  match 'publishers/:id/journal' => 'journals#create', via: :post, as: :create_journal
+
   resources :publishers do
     resources :entity_refs
     resources :policies
   end
-  resources :journals do
+  resources :journals, except: [:create, :new], constraints: {id: /[0-9]+/} do
     resources :entity_refs
     resources :policies
   end
+
   # match 'search/q', :controller => 'search', :action => 'search'
 
   # The priority is based upon order of creation:

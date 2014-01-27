@@ -2,7 +2,7 @@
     <h1>New Journal for <%= @publisher.name %></h1>
 </div>
 
-<%= render 'form' %>
+<%= render 'form_new' %>
 
 <div class="v-spaced">
     <%= link_to "Back to #{@publisher.name}", publisher_path(@publisher) %>

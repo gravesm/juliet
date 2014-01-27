@@ -1,33 +1,5 @@
 <%= form_for(@refable, html: {class: "form-horizontal"}) do |f| %>
-  <%= f.hidden_field(:publisher_id) %>
-  <% if @refable.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@refable.errors.count, "error") %> prohibited this journal from being saved:</h2>
 
-      <ul>
-      <% @refable.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :name, "Canonical Name", class: "control-label col-sm-3" %>
-    <div class="col-sm-7">
-      <%= f.text_field :name, { size: nil, class: "form-control" } %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="col-sm-9 col-sm-offset-3">
-      <%= f.submit class: "btn btn-primary" %>
-      <% if params[:action] == "new" %>
-        <%= link_to "Cancel", polymorphic_path(@publisher), class: "btn btn-default" %>
-      <% else %>
-        <%= link_to "Cancel", polymorphic_path(@refable), class: "btn btn-default" %>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'form_content', f: f %>
 
 <% end %>
