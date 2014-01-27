@@ -38,4 +38,9 @@ describe Publisher do
         j = FactoryGirl.create :journal
         expect { j.publisher.destroy }.to change(Journal, :count).by(-1)
     end
+
+    it "returns aliases in hash when calling as_json" do
+        p = FactoryGirl.create :publisher, :with_alias
+        expect(p.as_json[:aliases]).to eq(['J of FWW'])
+    end
 end

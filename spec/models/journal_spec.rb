@@ -42,4 +42,14 @@ describe Journal do
         j = FactoryGirl.create :journal, :with_alias
         expect { j.destroy }.to change(EntityRef, :count).by(-1)
     end
+
+    it "returns publisher name in hash when calling as_json" do
+        j = FactoryGirl.create :journal, :with_alias
+        expect(j.as_json[:publisher][:name]).to eq("Cat Arts")
+    end
+
+    it "returns alias names in hash when calling as_json" do
+        j = FactoryGirl.create :journal, :with_alias
+        expect(j.as_json[:aliases]).to eq(['J of FWW'])
+    end
 end
