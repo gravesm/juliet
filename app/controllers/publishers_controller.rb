@@ -28,6 +28,11 @@ class PublishersController < ApplicationController
 
         respond_to do |format|
             format.html { render 'refable/show' }
+            format.json do
+                json = @refable.as_json
+                json[:href] = url_for(@refable)
+                render json: json
+            end
         end
     end
 
@@ -41,7 +46,12 @@ class PublishersController < ApplicationController
         respond_to do |format|
             if @refable.save
                 format.html { redirect_to @refable, :notice => 'Publisher was successfully created.' }
-                format.json { render :json => @refable, :status => :created, :location => @refable }
+                format.json do
+                    json = @refable.as_json
+                    json[:href] = url_for(@refable)
+
+                    render :json => json, :status => :created
+                end
             else
                 format.html { render :action => "new" }
                 format.json { render :json => @refable.errors, :status => :unprocessable_entity }

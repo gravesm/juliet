@@ -32,7 +32,12 @@ class JournalsController < ApplicationController
 
     respond_to do |format|
       format.html { render 'refable/show' }
-      # format.json { render :json => @journal }
+      format.json {
+        json = @refable.as_json
+        json[:href] = url_for(@refable)
+
+        render json: json
+      }
     end
   end
 
@@ -50,7 +55,11 @@ class JournalsController < ApplicationController
     respond_to do |format|
       if @refable.save
         format.html { redirect_to @refable, :notice => 'Journal was successfully created.' }
-        format.json { render :json => @refable, :status => :created, :location => @refable }
+        format.json {
+          json = @refable.as_json
+          json["href"] = url_for(@refable)
+          render json: json, status: :created
+        }
       else
         format.html { render :action => "new" }
         format.json { render :json => @refable.errors, :status => :unprocessable_entity }
@@ -64,22 +73,6 @@ class JournalsController < ApplicationController
 
     render 'refable/edit'
   end
-
-  # # POST /journals
-  # # POST /journals.json
-  # def create
-  #   @journal = Journal.new(params[:journal])
-
-  #   respond_to do |format|
-  #     if @journal.save
-  #       format.html { redirect_to @journal, :notice => 'Journal was successfully created.' }
-  #       format.json { render :json => @journal, :status => :created, :location => @journal }
-  #     else
-  #       format.html { render :action => "new" }
-  #       format.json { render :json => @journal.errors, :status => :unprocessable_entity }
-  #     end
-  #   end
-  # end
 
   # PUT /journals/1
   # PUT /journals/1.json

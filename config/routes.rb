@@ -6,8 +6,8 @@ Pubeng::Application.routes.draw do
 
   root :to => 'search#index'
 
-  match 'publishers/:id/journal' => 'journals#new', via: :get, as: :new_journal
-  match 'publishers/:id/journal' => 'journals#create', via: :post, as: :create_journal
+  match 'publishers/:id/journals' => 'journals#new', via: :get, as: :new_journal
+  match 'publishers/:id/journals' => 'journals#create', via: :post, as: :create_journal
 
   resources :publishers do
     resources :entity_refs

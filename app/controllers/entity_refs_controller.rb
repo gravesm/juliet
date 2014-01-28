@@ -16,7 +16,12 @@ class EntityRefsController < ApplicationController
           redirect_to url_for([@refable, :entity_refs]),
           notice: "Alias #{ @entity_ref.refvalue } added."
         }
-        format.json { render json: @entity_ref, status: :created, location: @entity_ref }
+        format.json {
+          json = @refable.as_json
+          json[:href] = url_for(@refable)
+
+          render json: json, status: :created
+        }
       else
         format.html {
           redirect_to url_for([@refable, :entity_refs]),
