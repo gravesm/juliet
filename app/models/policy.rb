@@ -9,11 +9,4 @@ class Policy < ActiveRecord::Base
         :requirements, :opt_out_required, :should_request, :message, :policyable
     belongs_to :policyable, :polymorphic => true
 
-    def method_of_acquisition
-        read_attribute(:method_of_acquisition)
-    end
-
-    def method_of_acquistion=(value)
-        write_attribute(:method_of_acquisition)
-    end
 end

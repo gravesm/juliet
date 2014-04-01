@@ -1,5 +1,6 @@
 class SearchController < ApplicationController
-
+    include JournalsHelper
+    include PublishersHelper
     before_filter :do_query
 
     def index
@@ -17,14 +18,13 @@ class SearchController < ApplicationController
             }
         }
         if @result
-            res = @result.as_json
-            res[:href] = url_for(@result)
             if @result.respond_to? :publisher
-                res[:publisher][:href] = url_for(@result.publisher)
+                json[:result] = journal_to_json(@result)
+            else
+                json[:result] = publisher_to_json(@result)
             end
-            json[:result] = res
+            render json: json
         end
-        render :json => json
     end
 
     private

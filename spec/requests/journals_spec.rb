@@ -5,7 +5,9 @@ describe "Journal API" do
             j = { :name => "Grumblekinder" }
             post "/publishers/#{pub.id}/journals", journal: j, format: "json"
             expect(response.status).to eq(201)
-            expect(JSON.parse(response.body)["name"]).to eq("Grumblekinder")
+            res = JSON.parse(response.body)
+            expect(res["name"]).to eq("Grumblekinder")
+            expect(res["href"]).to be
         end
 
         it "create aliases for journals" do
@@ -24,10 +26,37 @@ describe "Journal API" do
             expect(JSON.parse(response.body)["name"]).to eq("Zimpflerinde")
         end
 
+        it "retrieve a journal with href" do
+            j = FactoryGirl.create :journal
+            get "/journals/#{j.id}", format: "json"
+            expect(JSON.parse(response.body)["href"]).to eq(
+                "http://www.example.com/journals/#{j.id}")
+        end
+
         it "delete journals" do
             j = FactoryGirl.create :journal
             delete "/journals/#{j.id}", format: "json"
             expect(response.status).to eq(204)
+        end
+
+        it "retrieve journal policy with journal" do
+            j = FactoryGirl.create :journal
+            get "/journals/#{j.id}", format: "json"
+            expect(JSON.parse(response.body)["policy"]["contact"]).to eq(
+                "Captain Figglesworth, Esq.")
+        end
+
+        it "retrieve publisher policy with journal" do
+            j = FactoryGirl.create :journal, :policy => nil
+            get "/journals/#{j.id}", format: "json"
+            expect(JSON.parse(response.body)["policy"]["type"]).to eq("Publisher")
+        end
+
+        it "retrieve policy with href" do
+            j = FactoryGirl.create :journal
+            get "/journals/#{j.id}", format: "json"
+            expect(JSON.parse(response.body)["policy"]["href"]).to eq(
+                "http://www.example.com/journals/#{j.id}/policies/#{j.policy.id}")
         end
     end
 end

@@ -1,5 +1,5 @@
 class PublishersController < ApplicationController
-
+    include PublishersHelper
     def index
         page = params[:page] || 1
         query = params[:query] || ''
@@ -28,11 +28,7 @@ class PublishersController < ApplicationController
 
         respond_to do |format|
             format.html { render 'refable/show' }
-            format.json do
-                json = @refable.as_json
-                json[:href] = url_for(@refable)
-                render json: json
-            end
+            format.json { render json: publisher_to_json(@refable) }
         end
     end
 
@@ -46,12 +42,7 @@ class PublishersController < ApplicationController
         respond_to do |format|
             if @refable.save
                 format.html { redirect_to @refable, :notice => 'Publisher was successfully created.' }
-                format.json do
-                    json = @refable.as_json
-                    json[:href] = url_for(@refable)
-
-                    render :json => json, :status => :created
-                end
+                format.json { render json: publisher_to_json(@refable), status: :created }
             else
                 format.html { render :action => "new" }
                 format.json { render :json => @refable.errors, :status => :unprocessable_entity }

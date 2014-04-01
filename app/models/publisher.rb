@@ -12,13 +12,6 @@ class Publisher < ActiveRecord::Base
             "entity_refs.refvalue LIKE ? OR publishers.name LIKE ?", name, name)
     end
 
-    def as_json(options={})
-        json = {
-            name: self.name,
-            aliases: self.entity_refs.all.map(&:refvalue)
-        }
-    end
-
     searchable do
         text :name
         string :name_sortable do
