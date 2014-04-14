@@ -1,4 +1,6 @@
-<% render 'sherpa' %>
+<% content_for :script do %>
+    <% render 'sherpa' %>
+<% end %>
 
 <div class="page-header text-center">
     <h1>New Policy for <%= @refable.name %></h1>

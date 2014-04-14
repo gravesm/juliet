@@ -1,4 +1,6 @@
-<% render 'policies/sherpa' %>
+<% content_for :script do %>
+    <% render 'policies/sherpa' %>
+<% end %>
 
 <div class="page-header text-center">
     <h1><%= @refable.name %></h1>
