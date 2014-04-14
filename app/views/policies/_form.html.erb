@@ -29,13 +29,6 @@
     </div>
 
     <div class="form-group">
-        <%= f.label :note, "Note", class: "control-label col-sm-3" %>
-        <div class="col-sm-9">
-            <%= f.text_area :note, { rows: 4, class: "form-control" } %>
-        </div>
-    </div>
-
-    <div class="form-group">
         <div class="col-sm-9 col-sm-offset-3">
             <div class="checkbox">
                 <%= f.check_box :opt_out_required %>
@@ -54,7 +47,21 @@
     </div>
 
     <div class="form-group">
-        <%= f.label :message, "Special Message", class: "control-label col-sm-3" %>
+        <%= f.label :note, "Note", class: "control-label col-sm-3" %>
+        <div class="col-sm-9">
+            <%= f.text_area :note, { rows: 4, class: "form-control" } %>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <%= f.label :message,
+            'Special Message <span class="glyphicon glyphicon-question-sign"></span>'.html_safe,
+            class: "control-label col-sm-3 popover-init",
+            "data-toggle" => "popover",
+            "data-trigger" => "hover",
+            "data-placement" => "top",
+            "data-content" => "This is the wording that will appear automatically with citations for this publisher."
+        %>
         <div class="col-sm-9">
             <%= f.text_area :message, { rows: 4, class: "form-control" } %>
         </div>

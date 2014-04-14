@@ -21,9 +21,13 @@
                 <%= policy.should_request ? 'Yes' : 'No' %>
             <% end %>
         </dd>
-        <dt>Special Message</dt>
-        <dd><%= policy.message %></dd>
         <dt>Notes</dt>
         <dd><%= raw(policy.note) %></dd>
+        <dt class="popover-init" data-toggle="popover" data-trigger="hover"
+                data-content="This is the wording that will appear automatically with citations for this publisher" data-placement="top">
+            Special Message
+            <span class="glyphicon glyphicon-question-sign"></span>
+        </dt>
+        <dd><%= policy.message %></dd>
     </dl>
 </div>
