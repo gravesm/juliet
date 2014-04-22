@@ -29,6 +29,7 @@ class PublishersController < ApplicationController
         respond_to do |format|
             format.html { render 'refable/show' }
             format.json { render json: publisher_to_json(@refable) }
+            format.xml
         end
     end
 

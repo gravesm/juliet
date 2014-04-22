@@ -58,5 +58,12 @@ describe "Journal API" do
             expect(JSON.parse(response.body)["policy"]["href"]).to eq(
                 "http://www.example.com/journals/#{j.id}/policies/#{j.policy.id}")
         end
+
+        it "retrieve a journal as XML" do
+            j = FactoryGirl.create :journal, name: "Catmenistan"
+            get "/journals/#{j.id}", format: "xml"
+            res = Nokogiri::XML(response.body)
+            expect(res.at_xpath("/journal/name").text).to eq("Catmenistan")
+        end
     end
 end

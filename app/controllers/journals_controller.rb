@@ -34,6 +34,7 @@ class JournalsController < ApplicationController
     respond_to do |format|
       format.html { render 'refable/show' }
       format.json { render json: journal_to_json(@refable) }
+      format.xml
     end
   end
 

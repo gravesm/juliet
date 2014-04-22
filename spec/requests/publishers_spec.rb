@@ -46,5 +46,12 @@ describe "Publisher API" do
             expect(JSON.parse(response.body)["policy"]["href"]).to eq(
                 "http://www.example.com/publishers/#{pub.id}/policies/#{pub.policy.id}")
         end
+
+        it "retrieve a publisher as XML" do
+            pub = FactoryGirl.create :publisher, name: "Fromblenip"
+            get "/publishers/#{pub.id}", format: "xml"
+            res = Nokogiri::XML(response.body)
+            expect(res.at_xpath("/publisher/name").text).to eq("Fromblenip")
+        end
     end
 end
