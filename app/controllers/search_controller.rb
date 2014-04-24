@@ -9,16 +9,21 @@ class SearchController < ApplicationController
     end
 
     def search
-        json = {
-            :response => {
-                :type => params[:type],
-                :query => params[:query],
-                :results => @result ? 1 : 0
+        respond_to do |format|
+            format.json {
+                json = {
+                    :response => {
+                        :type => params[:type],
+                        :query => params[:query],
+                        :results => @refable ? 1 : 0
+                    }
+                }
+                unless @refable.nil?
+                    json[:result] = refable_to_json(@refable)
+                end
+                render json: json
             }
-        }
-        if @result
-            json[:result] = refable_to_json(@result)
-            render json: json
+            format.xml
         end
     end
 
@@ -26,10 +31,10 @@ class SearchController < ApplicationController
         def do_query
             if params.has_key?(:query)
                 if params[:type] == "journal"
-                    @result = Journal.by_name(params[:query]).
+                    @refable = Journal.by_name(params[:query]).
                         group('journals.id').first
                 elsif params[:type] == "publisher"
-                    @result = Publisher.by_name(params[:query]).
+                    @refable = Publisher.by_name(params[:query]).
                         group('publishers.id').first
                 end
             end
