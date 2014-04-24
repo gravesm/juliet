@@ -1,5 +1,5 @@
 class JournalsController < ApplicationController
-  include JournalsHelper
+  include RefablesHelper
   # GET /journals
   # GET /journals.json
   def index
@@ -33,7 +33,7 @@ class JournalsController < ApplicationController
 
     respond_to do |format|
       format.html { render 'refable/show' }
-      format.json { render json: journal_to_json(@refable) }
+      format.json { render json: refable_to_json(@refable) }
       format.xml
     end
   end
@@ -52,7 +52,7 @@ class JournalsController < ApplicationController
     respond_to do |format|
       if @refable.save
         format.html { redirect_to @refable, :notice => 'Journal was successfully created.' }
-        format.json { render json: journal_to_json(@refable), status: :created }
+        format.json { render json: refable_to_json(@refable), status: :created }
       else
         format.html { render :action => "new" }
         format.json { render :json => @refable.errors, :status => :unprocessable_entity }

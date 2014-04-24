@@ -1,6 +1,5 @@
 class EntityRefsController < ApplicationController
-  include JournalsHelper
-  include PublishersHelper
+  include RefablesHelper
   before_filter :get_refable
 
   def index
@@ -18,11 +17,7 @@ class EntityRefsController < ApplicationController
           notice: "Alias #{ @entity_ref.refvalue } added."
         }
         format.json do
-          if @entity_ref.refable_type == 'Journal'
-            render json: journal_to_json(@refable), status: :created
-          else
-            render json: publisher_to_json(@refable), status: :created
-          end
+          render json: refable_to_json(@refable), status: :created
         end
       else
         format.html {

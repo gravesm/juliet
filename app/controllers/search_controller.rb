@@ -1,6 +1,5 @@
 class SearchController < ApplicationController
-    include JournalsHelper
-    include PublishersHelper
+    include RefablesHelper
     before_filter :do_query
 
     def index
@@ -18,11 +17,7 @@ class SearchController < ApplicationController
             }
         }
         if @result
-            if @result.respond_to? :publisher
-                json[:result] = journal_to_json(@result)
-            else
-                json[:result] = publisher_to_json(@result)
-            end
+            json[:result] = refable_to_json(@result)
             render json: json
         end
     end
