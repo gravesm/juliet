@@ -12,7 +12,8 @@ class Journal < ActiveRecord::Base
 
     def self.by_name(name)
         includes(:entity_refs).where(
-            "entity_refs.refvalue LIKE ? OR journals.name LIKE ?", name, name)
+            "lower(entity_refs.refvalue) LIKE lower(?) OR lower(journals.name) LIKE lower(?)",
+            name, name)
     end
 
     searchable do

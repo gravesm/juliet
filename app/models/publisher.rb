@@ -11,7 +11,8 @@ class Publisher < ActiveRecord::Base
 
     def self.by_name(name)
         includes(:entity_refs).where(
-            "entity_refs.refvalue LIKE ? OR publishers.name LIKE ?", name, name)
+            "lower(entity_refs.refvalue) LIKE lower(?) OR lower(publishers.name) LIKE lower(?)",
+            name, name)
     end
 
     searchable do
