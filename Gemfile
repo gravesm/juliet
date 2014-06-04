@@ -45,6 +45,7 @@ gem 'factory_girl_rails'
 gem 'ejs'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
+gem 'pg'
 
 group :development, :test do
     gem 'rspec-rails', '~> 2.0'
