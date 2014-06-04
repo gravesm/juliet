@@ -1,3 +1,5 @@
+require 'unique_name_validator'
+
 class Publisher < ActiveRecord::Base
     attr_accessible :note, :name, :journals
 
@@ -5,7 +7,7 @@ class Publisher < ActiveRecord::Base
     has_one :policy, :as => :policyable, :dependent => :destroy
     has_many :journals, :dependent => :destroy
 
-    validates :name, presence: true, uniqueness: { case_sensitivity: false }
+    validates :name, presence: true, unique_publisher: true
 
     def self.by_name(name)
         includes(:entity_refs).where(

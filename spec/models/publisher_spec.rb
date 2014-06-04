@@ -5,8 +5,10 @@ describe Publisher do
     end
 
     it "must have a unique canonical name" do
-        FactoryGirl.create :publisher
+        FactoryGirl.create :publisher, :with_alias
         expect(FactoryGirl.build :publisher).to have(1).error_on(:name)
+        expect(FactoryGirl.build :publisher, name: "J of FWW").to have(1)
+            .error_on(:name)
     end
 
     it "has an alias" do

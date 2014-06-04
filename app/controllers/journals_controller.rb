@@ -77,7 +77,7 @@ class JournalsController < ApplicationController
         format.html { redirect_to journal_path(@refable), :notice => 'Journal was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
+        format.html { render "refable/edit" }
         format.json { render :json => @refable.errors, :status => :unprocessable_entity }
       end
     end

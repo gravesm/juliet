@@ -1,3 +1,5 @@
+require 'unique_name_validator'
+
 class EntityRef < ActiveRecord::Base
     attr_accessible :refvalue, :refable, :ref_type
     belongs_to :refable, polymorphic: true
@@ -6,8 +8,7 @@ class EntityRef < ActiveRecord::Base
     validates :refable, presence: true
     validates :refable_type, presence: true
     validates :ref_type, presence: true
-    validates :refvalue,
-        uniqueness: { case_sensitivity: false }, presence: true
+    validates :refvalue, presence: true, unique_entity_ref: true
 
     def self.publishers
         where(refable_type: "Publisher").group('refable_id')

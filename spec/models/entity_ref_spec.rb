@@ -21,9 +21,10 @@ describe EntityRef do
     end
 
     it "must have a unique ref value" do
-        j = FactoryGirl.create(:journal)
-        FactoryGirl.create(:entity_ref, refable: j)
+        j = FactoryGirl.create :journal, :with_alias
         expect(FactoryGirl.build :entity_ref, refable: j)
+            .to have(1).error_on(:refvalue)
+        expect(FactoryGirl.build :entity_ref, refable: j, refvalue: j.name)
             .to have(1).error_on(:refvalue)
     end
 end

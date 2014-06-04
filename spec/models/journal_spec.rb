@@ -4,9 +4,12 @@ describe Journal do
     end
 
     it "must have a unique canonical name" do
-        FactoryGirl.create :journal
+        FactoryGirl.create :journal, :with_alias
         pub = FactoryGirl.create :publisher, name: "Fobblewhip"
-        expect(FactoryGirl.build :journal, publisher: pub).to have(1).error_on(:name)
+        expect(FactoryGirl.build :journal, name: "J of FWW", publisher: pub)
+            .to have(1).error_on(:name)
+        expect(FactoryGirl.build :journal, publisher: pub).to have(1)
+            .error_on(:name)
     end
 
     it "has an alias" do
