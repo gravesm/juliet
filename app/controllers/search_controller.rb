@@ -4,7 +4,7 @@ class SearchController < ApplicationController
 
     def index
         if params[:query]
-            @journal = Journal.by_name(params[:query]).group('journals.id').first
+            @journal = Journal.by_name(params[:query]).first
         end
     end
 
