@@ -31,11 +31,9 @@ class SearchController < ApplicationController
         def do_query
             if params.has_key?(:query)
                 if params[:type] == "journal"
-                    @refable = Journal.by_name(params[:query]).
-                        group('journals.id').first
+                    @refable = Journal.by_name(params[:query]).first
                 elsif params[:type] == "publisher"
-                    @refable = Publisher.by_name(params[:query]).
-                        group('publishers.id').first
+                    @refable = Publisher.by_name(params[:query]).first
                 end
             end
         end
