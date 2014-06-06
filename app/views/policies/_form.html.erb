@@ -20,11 +20,17 @@
     <div class="form-group">
         <%= f.label :method_of_acquisition, "Method of Acquisition",
                 class: "control-label col-sm-3" %>
-        <div class="col-sm-4">
-            <%= f.select :method_of_acquisition, options_for_select([
-                    ['Harvest', 'HARVEST'], ['Individual download', 'INDIVIDUAL_DOWNLOAD'],
-                    ['Recruit from author', 'RECRUIT_FROM_AUTHOR'], ['Sword', 'SWORD']],
-                    @policy.method_of_acquisition), {include_blank: '---------'}, {class: "form-control"} %>
+        <div class="col-sm-6">
+            <%= f.select :method_of_acquisition,
+                options_for_select([
+                    ['Harvest', 'HARVEST'],
+                    ['Individual download', 'INDIVIDUAL_DOWNLOAD'],
+                    ['Recruit from author - FPV accepted', 'RECRUIT_FROM_AUTHOR_FPV'],
+                    ['Recruit from author - manuscript only', 'RECRUIT_FROM_AUTHOR_MANUSCRIPT'],
+                    ['Sword', 'SWORD']],
+                    @policy.method_of_acquisition || 'RECRUIT_FROM_AUTHOR_MANUSCRIPT'),
+                {}, {class: "form-control"}
+            %>
         </div>
     </div>
 

@@ -59,6 +59,6 @@ def policy_method(row)
     elsif row['IndividualHarvest'] == 1
         return "INDIVIDUAL_DOWNLOAD"
     elsif row['AcceptFinalFromAuthor'] == 1
-        return "RECRUIT_FROM_AUTHOR"
+        return "RECRUIT_FROM_AUTHOR_FPV"
     end
 end

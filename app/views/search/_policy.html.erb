@@ -8,7 +8,15 @@
         <dt>Embargo</dt>
         <dd><%= policy.embargo %></dd>
         <dt>Method of Acquisition</dt>
-        <dd><%= policy.method_of_acquisition.humanize %></dd>
+        <dd>
+            <%= {   "SWORD" => "Sword",
+                    "HARVEST" => "Harvest",
+                    "INDIVIDUAL_DOWNLOAD" => "Individual download",
+                    "RECRUIT_FROM_AUTHOR_FPV" => "Recruit from author - FPV accepted",
+                    "RECRUIT_FROM_AUTHOR_MANUSCRIPT" => "Recruit from author - manuscript only"
+                }.fetch(policy.method_of_acquisition)
+            %>
+        </dd>
         <dt>Opt-out Required</dt>
         <dd>
             <% unless policy.opt_out_required.nil? %>
