@@ -36,6 +36,10 @@ namespace :data do
             CSV.foreach(args[:aliases], encoding: "windows-1251:utf-8",
                         headers: true, converters: :numeric) do |row|
                 journal = journals[row['JournalID']]
+                if journal.nil?
+                    puts "#{row['JournalID']}: #{row['Title']}"
+                    next
+                end
                 if row['Title'] != journal.name
                     EntityRef.create(ref_type: refalias, refable: journal,
                                      refvalue: row['Title'])
@@ -54,11 +58,13 @@ def policy?(row)
 end
 
 def policy_method(row)
-    if row['HarvestFromSite'] == 1
+    if row['HarvestFromSite'] == 'TRUE'
         return "HARVEST"
-    elsif row['IndividualHarvest'] == 1
+    elsif row['IndividualHarvest'] == 'TRUE'
         return "INDIVIDUAL_DOWNLOAD"
-    elsif row['AcceptFinalFromAuthor'] == 1
+    elsif row['AcceptFinalFromAuthor'] == 'TRUE'
         return "RECRUIT_FROM_AUTHOR_FPV"
+    elsif row['SWORDdeposit'] == 'TRUE'
+        return "SWORD"
     end
 end
