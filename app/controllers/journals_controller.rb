@@ -13,6 +13,9 @@ class JournalsController < ApplicationController
 
       order_by(:score, :desc)
       order_by(:name_sortable, :asc)
+      adjust_solr_params do |params|
+        params[:qs] = 40
+      end
     end
 
     @results = Kaminari.paginate_array(
