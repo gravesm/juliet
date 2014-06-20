@@ -2,6 +2,24 @@
     <% render 'sherpa' %>
 <% end %>
 
+<% content_for :script_footer do %>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ckeditor/4.3.2/ckeditor.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            CKEDITOR.replace("policy_note", {
+                toolbar: [
+                    {
+                        items: [
+                            'Bold', 'Italic', '-',
+                            'NumberedList', 'BulletedList', '-',
+                            'Link', 'Unlink'
+                    ]}
+                ]
+            });
+        });
+    </script>
+<% end %>
+
 <div class="page-header text-center">
     <h1>New Policy for <%= @refable.name %></h1>
 </div>
