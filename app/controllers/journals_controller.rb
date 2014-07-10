@@ -74,9 +74,14 @@ class JournalsController < ApplicationController
   # PUT /journals/1.json
   def update
     @refable = Journal.find(params[:id])
+    changed_params = {}
+    @refable.assign_attributes(params[:journal])
+    @refable.changes.each do |k, v|
+      changed_params[k] = v.last
+    end
 
     respond_to do |format|
-      if @refable.update_attributes(params[:journal])
+      if @refable.update_attributes(changed_params)
         format.html { redirect_to journal_path(@refable), :notice => 'Journal was successfully updated.' }
         format.json { head :no_content }
       else

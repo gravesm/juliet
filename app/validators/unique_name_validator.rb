@@ -1,7 +1,9 @@
 class UniqueJournalValidator < ActiveModel::EachValidator
     def validate_each(record, attribute, value)
-        record.errors[attribute] << 'name must be unique' unless
-            Journal.by_name(value).empty?
+        if record.name_changed?
+            record.errors[attribute] << 'name must be unique' unless
+                Journal.by_name(value).empty?
+        end
     end
 end
 

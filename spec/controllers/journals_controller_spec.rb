@@ -83,13 +83,22 @@ describe JournalsController do
             expect(assigns(:refable)).to eq(@journal)
         end
 
-        it "changes a journal's attributes" do
+        it "changes a journal's canonical name" do
             put :update, id: @journal, journal: FactoryGirl.attributes_for(
                 :journal, name: "Thimblesticks")
 
             @journal.reload
 
             expect(@journal.name).to eq("Thimblesticks")
+        end
+
+        it "changes a journal's publisher" do
+            pub = FactoryGirl.create :publisher, name: "Hambow"
+            put :update, id: @journal, journal: FactoryGirl.attributes_for(
+                :journal, publisher_id: pub.id)
+            @journal.reload
+
+            expect(@journal.publisher_id).to eq(pub.id)
         end
     end
 
