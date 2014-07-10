@@ -18,6 +18,14 @@
 </div>
 
 <div class="form-group">
+  <label class="control-label col-sm-3">Publisher</label>
+  <div class="col-sm-7">
+    <input id="pub_name" type="text" class="form-control" value="<%= @refable.publisher.name %>">
+    <input id="pub_id" type="hidden" name="journal[publisher_id]" value="<%= @refable.publisher_id %>"/>
+  </div>
+</div>
+
+<div class="form-group">
   <div class="col-sm-9 col-sm-offset-3">
     <%= f.submit class: "btn btn-primary" %>
     <% if params[:action] == "new" %>

@@ -1,3 +1,30 @@
+<% content_for :script do %>
+    <script>
+        $(function() {
+            $("#pub_name").autocomplete({
+                serviceUrl: "<%= url_for( controller: 'publishers', action: 'index' ) %>",
+                dataType: 'json',
+                transformResult: function(response, query) {
+                    var o = [];
+                    $.each(response, function(k, v) {
+                        o.push({
+                            value: v['name'],
+                            data: v['id']
+                        });
+                    });
+                    return {
+                        query: query,
+                        suggestions: o
+                    };
+                },
+                onSelect: function(item) {
+                    $("#pub_id").val(item.data);
+                }
+            });
+        });
+    </script>
+<% end %>
+
 <%= form_for(@refable, html: {class: "form-horizontal"}) do |f| %>
 
   <%= render 'form_content', f: f %>

@@ -126,3 +126,28 @@ h1 .btn, h3 .btn {
 .romeo-unclear .glyphicon:before {
     content: "\e085";
 }
+
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    border-radius: 2px;
+    background: #FFF;
+    text-align: left;
+    max-height: 300px;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 5px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.autocomplete-selected {
+    background:#F0F0F0;
+}
+
+.autocomplete-suggestion strong {
+    font-weight: bold;
+}
