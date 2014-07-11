@@ -56,4 +56,5 @@ group :test do
     gem 'capybara'
     gem 'database_cleaner', "<=1.0.1" # 1.1.0 is broken
     gem 'poltergeist'
+    gem 'sunspot_test'
 end
