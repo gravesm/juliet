@@ -2,6 +2,15 @@ require 'spec_helper'
 
 describe JournalsController do
 
+    describe "index", search: true do
+        it "assigns the results variable" do
+            j = FactoryGirl.create :journal, name: "Muffincup"
+            Sunspot.commit
+            get :index, query: "Muffin"
+            expect(assigns(:results)).to eq([j])
+        end
+    end
+
     describe "show" do
         it "returns the specified journal" do
             journal = FactoryGirl.create :journal

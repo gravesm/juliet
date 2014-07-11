@@ -5,6 +5,28 @@ describe "Journals" do
         stub_request(:any, /http:\/\/www\.sherpa\.ac\.uk.*/)
     end
 
+    describe "index", search: true do
+        it "returns list of journals" do
+            p = FactoryGirl.create :publisher
+            FactoryGirl.create :journal, name: "Pie", publisher: p
+            FactoryGirl.create :journal, name: "Cake Science", publisher: p
+            Sunspot.commit
+            visit journals_path
+            expect(page).to have_content("Cake Science")
+        end
+
+        it "returns list of journals matching search" do
+            p = FactoryGirl.create :publisher
+            FactoryGirl.create :journal, name: "Meek", publisher: p
+            FactoryGirl.create :journal, name: "Mok", publisher: p
+            Sunspot.commit
+            visit journals_path
+            fill_in "query", with: "Meek"
+            click_button "Search"
+            expect(page).to have_content("Meek")
+        end
+    end
+
     describe "create" do
 
         it "creates a new journal" do
@@ -20,8 +42,7 @@ describe "Journals" do
         end
     end
 
-    describe "Edit" do
-
+    describe "Edit", search: true do
         it "updates journal attributes" do
             journal = FactoryGirl.create :journal, name: "Blorphimatic"
 
@@ -32,6 +53,20 @@ describe "Journals" do
             end
             click_button "Update Journal"
             expect(find("h1").text).to eq("Frobber")
+        end
+
+        it "changes a journal's publisher", js: true do
+            j = FactoryGirl.create :journal
+            p = FactoryGirl.create :publisher, name: "Bleepbloop"
+            Sunspot.commit
+            visit edit_journal_path(j)
+            within "#edit_journal_#{j.id}" do
+                fill_in "pub_name", with: "Ble"
+                page.execute_script("$('#pub_name').trigger('change');")
+            end
+            find(".autocomplete-suggestions div[data-index='0']").click
+            click_button "Update Journal"
+            expect(find("h2").text).to eq("Published by Bleepbloop")
         end
     end
 
