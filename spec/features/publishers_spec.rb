@@ -1,4 +1,4 @@
-describe "Publishers" do
+describe "Publishers", type: :feature do
 
     before :each do
         stub_request(:any, /http:\/\/www\.sherpa\.ac\.uk.*/)

@@ -7,7 +7,7 @@ class PoliciesController < ApplicationController
     end
 
     def create
-        @policy = Policy.new(params[:policy])
+        @policy = Policy.new(policy_params)
         @policy.policyable = @refable
 
         respond_to do |format|
@@ -32,7 +32,7 @@ class PoliciesController < ApplicationController
         @policy = Policy.find(params[:id])
 
         respond_to do |format|
-            if @policy.update_attributes(params[:policy])
+            if @policy.update_attributes(policy_params)
                 format.html { redirect_to @policy.policyable, :notice => 'Policy was successfully updated.' }
                 format.json { head :no_content }
             else
@@ -43,11 +43,17 @@ class PoliciesController < ApplicationController
     end
 
     private
-    def get_refable
-        if params.has_key?(:journal_id)
-            @refable = Journal.find(params[:journal_id])
-        else
-            @refable = Publisher.find(params[:publisher_id])
+        def get_refable
+            if params.has_key?(:journal_id)
+                @refable = Journal.find(params[:journal_id])
+            else
+                @refable = Publisher.find(params[:publisher_id])
+            end
         end
-    end
+
+        def policy_params
+            params.require(:policy).permit(:contact, :embargo, :note, :requirements,
+                                           :method_of_acquisition, :opt_out_required,
+                                           :should_request, :message)
+        end
 end

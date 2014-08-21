@@ -1,8 +1,6 @@
 require 'unique_name_validator'
 
 class Journal < ActiveRecord::Base
-    attr_accessible :note, :name, :publisher, :publisher_id
-
     has_many :entity_refs, as: :refable, :dependent => :destroy
     has_one :policy, :as => :policyable, :dependent => :destroy
     belongs_to :publisher
@@ -13,7 +11,7 @@ class Journal < ActiveRecord::Base
     def self.by_name(name)
         includes(:entity_refs).where(
             "lower(entity_refs.refvalue) LIKE lower(?) OR lower(journals.name) LIKE lower(?)",
-            name, name)
+            name, name).references(:entity_refs)
     end
 
     searchable do

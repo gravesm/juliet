@@ -1,4 +1,4 @@
-describe "Journal API" do
+describe "Journal API", type: :request do
     describe "lets API clients" do
         it "create journals" do
             pub = FactoryGirl.create :publisher

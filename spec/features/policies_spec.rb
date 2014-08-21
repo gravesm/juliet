@@ -1,4 +1,4 @@
-describe "Policies" do
+describe "Policies", type: :feature do
 
     describe "edit" do
 

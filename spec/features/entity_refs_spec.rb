@@ -1,5 +1,5 @@
 
-describe "EntityRefs" do
+describe "EntityRefs", type: :feature do
 
     it "lists the aliases for a journal" do
         journal = FactoryGirl.create :journal

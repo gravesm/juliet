@@ -1,4 +1,4 @@
-describe SearchController do
+describe SearchController, type: :controller do
     describe "index" do
         it "creates an array of journals for exact match" do
             journal = FactoryGirl.create :journal
@@ -29,14 +29,14 @@ describe SearchController do
         it "assigns refable variable when successful journal match is found" do
             journal = FactoryGirl.create :journal, name: "Bubblemup"
 
-            get :search, type: "journal", query: "Bubblemup"
+            get :search, type: "journal", query: "Bubblemup", format: :json
             expect(assigns(:refable)).to eq(journal)
         end
 
         it "assigns refable variable when successful publisher match is found" do
             pub = FactoryGirl.create :publisher, name: "Fiddleraff"
 
-            get :search, type: "publisher", query: "Fiddleraff"
+            get :search, type: "publisher", query: "Fiddleraff", format: :json
             expect(assigns(:refable)).to eq(pub)
         end
     end

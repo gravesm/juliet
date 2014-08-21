@@ -1,5 +1,6 @@
+require 'spec_helper'
 
-describe "Journals" do
+describe "Journals", type: :feature do
 
     before :each do
         stub_request(:any, /http:\/\/www\.sherpa\.ac\.uk.*/)
@@ -62,7 +63,6 @@ describe "Journals" do
             visit edit_journal_path(j)
             within "#edit_journal_#{j.id}" do
                 fill_in "pub_name", with: "Ble"
-                page.execute_script("$('#pub_name').trigger('change');")
             end
             find(".autocomplete-suggestions div[data-index='0']").click
             click_button "Update Journal"

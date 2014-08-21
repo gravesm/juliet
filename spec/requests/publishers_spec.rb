@@ -1,4 +1,4 @@
-describe "Publisher API" do
+describe "Publisher API", type: :request do
     describe "lets API clients" do
         it "create publishers" do
             pub = { :name => "Figglewallup" }

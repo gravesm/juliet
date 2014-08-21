@@ -49,7 +49,7 @@ class JournalsController < ApplicationController
 
   def create
     @publisher = Publisher.find(params[:id])
-    @refable = Journal.new(params[:journal])
+    @refable = Journal.new(journal_params)
     @refable.publisher = @publisher
 
     respond_to do |format|
@@ -75,7 +75,7 @@ class JournalsController < ApplicationController
   def update
     @refable = Journal.find(params[:id])
     changed_params = {}
-    @refable.assign_attributes(params[:journal])
+    @refable.assign_attributes(journal_params)
     @refable.changes.each do |k, v|
       changed_params[k] = v.last
     end
@@ -102,4 +102,9 @@ class JournalsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+    def journal_params
+      params.require(:journal).permit(:note, :name, :publisher_id)
+    end
 end

@@ -1,30 +1,39 @@
 require 'spec_helper'
 
-describe EntityRef do
+describe EntityRef, type: :model do
     it "must have a refable" do
-        expect(FactoryGirl.build :entity_ref).to have(1).error_on(:refable)
+        eref = FactoryGirl.build :entity_ref
+        expect(eref.valid?).to be_falsey
+        expect(eref.errors[:refable].size).to eq(1)
     end
 
     it "must have a reftype" do
-        expect(FactoryGirl.build :entity_ref, ref_type: nil)
-            .to have(1).error_on(:ref_type)
+        eref = FactoryGirl.build :entity_ref, ref_type: nil
+        expect(eref.valid?).to be_falsey
+        expect(eref.errors[:ref_type].size).to eq(1)
     end
 
     it "must have a refable type" do
-        expect(FactoryGirl.build :entity_ref, refable_type: nil)
-            .to have(1).error_on(:refable_type)
+        eref = FactoryGirl.build :entity_ref, refable_type: nil
+        expect(eref.valid?).to be_falsey
+        expect(eref.errors[:refable_type].size).to eq(1)
     end
 
     it "must have a ref value" do
-        expect(FactoryGirl.build :entity_ref, refvalue: nil)
-            .to have(1).error_on(:refvalue)
+        eref = FactoryGirl.build :entity_ref, refvalue: nil
+        expect(eref.valid?).to be_falsey
+        expect(eref.errors[:refvalue].size).to eq(1)
     end
 
     it "must have a unique ref value" do
         j = FactoryGirl.create :journal, :with_alias
-        expect(FactoryGirl.build :entity_ref, refable: j)
-            .to have(1).error_on(:refvalue)
-        expect(FactoryGirl.build :entity_ref, refable: j, refvalue: j.name)
-            .to have(1).error_on(:refvalue)
+
+        eref = FactoryGirl.build :entity_ref, refable: j
+        expect(eref.valid?).to be_falsey
+        expect(eref.errors[:refvalue].size).to eq(1)
+
+        eref = FactoryGirl.build :entity_ref, refable: j, refvalue: j.name
+        expect(eref.valid?).to be_falsey
+        expect(eref.errors[:refvalue].size).to eq(1)
     end
 end

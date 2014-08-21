@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe EntityRefsController do
+describe EntityRefsController, type: :controller do
 
     it "returns the journal" do
         journal = FactoryGirl.create :journal, :with_alias

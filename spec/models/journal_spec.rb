@@ -1,15 +1,21 @@
-describe Journal do
+describe Journal, type: :model do
     it "must have a canonical name" do
-        expect(FactoryGirl.build :journal, name: nil).to have(1).error_on(:name)
+        j = FactoryGirl.build :journal, name: nil
+        expect(j.valid?).to be_falsey
+        expect(j.errors[:name].size).to eq(1)
     end
 
     it "must have a unique canonical name" do
         FactoryGirl.create :journal, :with_alias
         pub = FactoryGirl.create :publisher, name: "Fobblewhip"
-        expect(FactoryGirl.build :journal, name: "J of FWW", publisher: pub)
-            .to have(1).error_on(:name)
-        expect(FactoryGirl.build :journal, publisher: pub).to have(1)
-            .error_on(:name)
+
+        j = FactoryGirl.build :journal, name: "J of FWW", publisher: pub
+        expect(j.valid?).to be_falsey
+        expect(j.errors[:name].size).to eq(1)
+
+        j = FactoryGirl.build :journal, publisher: pub
+        expect(j.valid?).to be_falsey
+        expect(j.errors[:name].size).to eq(1)
     end
 
     it "has an alias" do
@@ -23,7 +29,9 @@ describe Journal do
     end
 
     it "must have a publisher" do
-        expect(FactoryGirl.build :journal, publisher: nil).to have(1).error_on(:publisher)
+        j = FactoryGirl.build :journal, publisher: nil
+        expect(j.valid?).to be_falsey
+        expect(j.errors[:publisher].size).to eq(1)
     end
 
     it "returns a journal by name" do

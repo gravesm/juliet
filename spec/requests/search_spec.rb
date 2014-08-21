@@ -1,4 +1,4 @@
-describe "Search API" do
+describe "Search API", type: :request do
     describe "using JSON" do
         it "returns journal" do
             j = FactoryGirl.create :journal, :with_alias, name: "Lord Snugglepants"

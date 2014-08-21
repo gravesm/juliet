@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PoliciesController do
+describe PoliciesController, type: :controller do
 
     describe "create" do
 
@@ -9,19 +9,19 @@ describe PoliciesController do
         end
 
         it "assigns policyable object for policy creation" do
-            post :create, publisher_id: @pub
+            post :create, publisher_id: @pub, policy: FactoryGirl.attributes_for(:policy)
 
             expect(assigns(:policy).policyable).to eq(@pub)
         end
 
         it "creates a new policy object" do
             expect {
-                post :create, publisher_id: @pub
+                post :create, publisher_id: @pub, policy: FactoryGirl.attributes_for(:policy)
             }.to change(Policy, :count).by(1)
         end
 
         it "notifies user of successful policy creation" do
-            post :create, publisher_id: @pub
+            post :create, publisher_id: @pub, policy: FactoryGirl.attributes_for(:policy)
             expect(flash[:notice]).not_to be_nil
         end
     end

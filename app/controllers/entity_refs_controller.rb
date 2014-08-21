@@ -6,7 +6,7 @@ class EntityRefsController < ApplicationController
   end
 
   def create
-    @entity_ref = @refable.entity_refs.new(params[:entity_ref])
+    @entity_ref = @refable.entity_refs.new(entity_ref_params)
     @entity_ref.ref_type = RefType.where("type_name = ?", "Alias").first
 
     respond_to do |format|
@@ -50,5 +50,9 @@ class EntityRefsController < ApplicationController
       else
         @refable = Publisher.find(params[:publisher_id])
       end
+    end
+
+    def entity_ref_params
+      params.require(:entity_ref).permit(:refvalue)
     end
 end

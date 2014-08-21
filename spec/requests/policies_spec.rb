@@ -1,4 +1,4 @@
-describe "Policy API lets API clients" do
+describe "Policy API lets API clients", type: :request do
     it "create a policy for a publisher" do
         pub = FactoryGirl.create :publisher, policy: nil
         policy = { contact: "Muffincup" }

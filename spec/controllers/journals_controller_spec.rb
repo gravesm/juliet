@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe JournalsController do
+describe JournalsController, type: :controller do
 
     describe "index", search: true do
         it "assigns the results variable" do
@@ -87,7 +87,7 @@ describe JournalsController do
         end
 
         it "locates the requested journal" do
-            put :update, id: @journal
+            put :update, id: @journal, journal: FactoryGirl.attributes_for(:journal)
 
             expect(assigns(:refable)).to eq(@journal)
         end
@@ -103,8 +103,7 @@ describe JournalsController do
 
         it "changes a journal's publisher" do
             pub = FactoryGirl.create :publisher, name: "Hambow"
-            put :update, id: @journal, journal: FactoryGirl.attributes_for(
-                :journal, publisher_id: pub.id)
+            put :update, id: @journal, journal: { publisher_id: pub.id }
             @journal.reload
 
             expect(@journal.publisher_id).to eq(pub.id)

@@ -1,14 +1,21 @@
-describe Publisher do
+describe Publisher, type: :model do
 
     it "must have a canonical name" do
-        expect(FactoryGirl.build :publisher, name: nil).to have(1).error_on(:name)
+        p = FactoryGirl.build :publisher, name: nil
+        expect(p.valid?).to be_falsey
+        expect(p.errors[:name].size).to eq(1)
     end
 
     it "must have a unique canonical name" do
         FactoryGirl.create :publisher, :with_alias
-        expect(FactoryGirl.build :publisher).to have(1).error_on(:name)
-        expect(FactoryGirl.build :publisher, name: "J of FWW").to have(1)
-            .error_on(:name)
+
+        p = FactoryGirl.build :publisher
+        expect(p.valid?).to be_falsey
+        expect(p.errors[:name].size).to eq(1)
+
+        p = FactoryGirl.build :publisher, name: "J of FWW"
+        expect(p.valid?).to be_falsey
+        expect(p.errors[:name].size).to eq(1)
     end
 
     it "has an alias" do

@@ -42,7 +42,7 @@ class PublishersController < ApplicationController
     end
 
     def create
-        @refable = Publisher.new(params[:publisher])
+        @refable = Publisher.new(publisher_params)
 
         respond_to do |format|
             if @refable.save
@@ -65,7 +65,7 @@ class PublishersController < ApplicationController
         @refable = Publisher.find(params[:id])
 
         respond_to do |format|
-            if @refable.update_attributes(params[:publisher])
+            if @refable.update_attributes(publisher_params)
                 format.html { redirect_to publisher_path(@refable), :notice => 'Publisher was successfully updated.' }
                 format.json { head :no_content }
             else
@@ -84,4 +84,9 @@ class PublishersController < ApplicationController
             format.json { head :no_content }
         end
     end
+
+    private
+        def publisher_params
+            params.require(:publisher).permit(:note, :name)
+        end
 end

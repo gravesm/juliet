@@ -1,6 +1,6 @@
 Pubeng::Application.routes.draw do
 
-  match 'search/:type' => 'search#search', type: /journal|publisher/
+  match 'search/:type' => 'search#search', type: /journal|publisher/, via: :get
   match ':refable/:id/lookup' => 'proxy#fetch', refable: /journals|publishers/,
     as: :proxy, via: :get
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe PublishersController do
+describe PublishersController, type: :controller do
 
     describe "show" do
         it "returns the specified refable" do
@@ -73,7 +73,8 @@ describe PublishersController do
         end
 
         it "locates the requested publisher" do
-            put :update, id: @publisher
+            put :update, id: @publisher, publisher: FactoryGirl.attributes_for(
+                :publisher)
 
             expect(assigns(:refable)).to eq(@publisher)
         end

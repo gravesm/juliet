@@ -3,7 +3,7 @@ module RefablesHelper
     def refable_to_json(refable)
         ref = {
             name: refable.name,
-            aliases: refable.entity_refs.all.map(&:refvalue),
+            aliases: refable.entity_refs.load.map(&:refvalue),
             href: url_for(refable)
         }
 

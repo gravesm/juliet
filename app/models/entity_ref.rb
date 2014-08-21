@@ -1,7 +1,6 @@
 require 'unique_name_validator'
 
 class EntityRef < ActiveRecord::Base
-    attr_accessible :refvalue, :refable, :ref_type
     belongs_to :refable, polymorphic: true
     belongs_to :ref_type
 
