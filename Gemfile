@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.0.0'
+gem 'rails', '~> 4.1.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -54,7 +54,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'webmock'
   gem 'capybara'
-  gem 'database_cleaner', "<=1.0.1" # 1.1.0 is broken
+  gem 'database_cleaner'
   gem 'poltergeist'
   gem 'sunspot_test'
 end
