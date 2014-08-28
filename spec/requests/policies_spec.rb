@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Policy API lets API clients", type: :request do
     it "create a policy for a publisher" do
         pub = FactoryGirl.create :publisher, policy: nil

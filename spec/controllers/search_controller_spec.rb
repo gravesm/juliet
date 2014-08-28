@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe SearchController, type: :controller do
     describe "index" do
         it "creates an array of journals for exact match" do

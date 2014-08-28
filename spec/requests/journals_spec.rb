@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Journal API", type: :request do
     describe "lets API clients" do
         it "create journals" do

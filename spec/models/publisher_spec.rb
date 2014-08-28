@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Publisher, type: :model do
 
     it "must have a canonical name" do

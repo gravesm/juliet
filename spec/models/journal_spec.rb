@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Journal, type: :model do
     it "must have a canonical name" do
         j = FactoryGirl.build :journal, name: nil

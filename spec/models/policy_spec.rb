@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe Policy, type: :model do
 
     it "should not require a method of acquisition" do

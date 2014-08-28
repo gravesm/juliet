@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Policies", type: :feature do
 
     describe "edit" do

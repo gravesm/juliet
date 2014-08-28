@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Search", type: :feature do
     it "displays policy for journal with policy" do
         j = FactoryGirl.create :journal, name: "Binglewump"

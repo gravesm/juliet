@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Search API", type: :request do
     describe "using JSON" do
         it "returns journal" do

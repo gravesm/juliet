@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Publishers", type: :feature do
 
     before :each do
