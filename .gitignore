@@ -3,3 +3,6 @@ log/
 tmp/
 solr/data/
 solr/pids/
+solr/development
+solr/test
+solr/production
