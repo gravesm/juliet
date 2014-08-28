@@ -1,5 +1,3 @@
-require 'unique_name_validator'
-
 class EntityRef < ActiveRecord::Base
     belongs_to :refable, polymorphic: true
     belongs_to :ref_type
@@ -7,7 +5,11 @@ class EntityRef < ActiveRecord::Base
     validates :refable, presence: true
     validates :refable_type, presence: true
     validates :ref_type, presence: true
-    validates :refvalue, presence: true, unique_entity_ref: true
+    validates :refvalue, presence: true
+    validate unless: Proc.new { |r| r.refable.nil? } do
+        errors.add(:refvalue, "Name must be unique") unless
+            refable.class.by_name(refvalue).empty?
+    end
 
     def self.publishers
         where(refable_type: "Publisher").group('refable_id')
