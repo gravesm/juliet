@@ -48,6 +48,11 @@ describe JournalsController, type: :controller do
             expect(assigns(:publisher)).to eq(@pub)
             expect(assigns(:refable)).not_to be_nil
         end
+
+        it "creates a new journal object" do
+            get :new, id: @pub
+            expect(assigns(:refable)).to be_a_new(Journal)
+        end
     end
 
     describe "create" do
@@ -55,6 +60,11 @@ describe JournalsController, type: :controller do
         before :each do
             @pub = FactoryGirl.create :publisher
             @journal = FactoryGirl.attributes_for(:journal).merge({ publisher_id: @pub })
+        end
+
+        it "returns created status when using json" do
+            post :create, journal: @journal, id: @pub, format: :json
+            expect(response).to have_http_status(:created)
         end
 
         it "creates a new journal" do

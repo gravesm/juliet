@@ -1,4 +1,5 @@
 class JournalsController < ApplicationController
+  respond_to :html, :json, :xml
 
   def index
 
@@ -19,9 +20,8 @@ class JournalsController < ApplicationController
     @results = Kaminari.paginate_array(
         searcher.results, total_count: searcher.hits.total_count).page(page).per(15)
 
-    respond_to do |format|
+    respond_with(@refable) do |format|
       format.html { render 'refable/index' }
-      # format.json { render :json => @journals }
     end
   end
 
@@ -32,32 +32,23 @@ class JournalsController < ApplicationController
     @aliases = @refable.entity_refs.order(:refvalue)
     @confirm = "This will permanently delete this journal, its policy and all its aliases. Are you sure you want to do this?"
 
-    respond_to do |format|
+    respond_with(@refable) do |format|
       format.html { render 'refable/show' }
-      format.json
-      format.xml
     end
   end
 
   def new
     @publisher = Publisher.find(params[:id])
-    @refable = Journal.new
-    @refable.publisher = @publisher
+    @refable = @publisher.journals.build
+    respond_with(@refable)
   end
 
   def create
     @publisher = Publisher.find(params[:id])
-    @refable = Journal.new(journal_params)
-    @refable.publisher = @publisher
-
-    respond_to do |format|
-      if @refable.save
-        format.html { redirect_to @refable, :notice => 'Journal was successfully created.' }
-        format.json { render status: :created }
-      else
-        format.html { render :action => "new" }
-        format.json { render :json => @refable.errors, :status => :unprocessable_entity }
-      end
+    @refable = @publisher.journals.build(journal_params)
+    flash[:notice] = "Journal was successfully created." if @refable.save
+    respond_with(@refable) do |format|
+      format.json { render status: :created } # Why, Rails?
     end
   end
 
@@ -72,21 +63,10 @@ class JournalsController < ApplicationController
   # PUT /journals/1.json
   def update
     @refable = Journal.find(params[:id])
-    changed_params = {}
-    @refable.assign_attributes(journal_params)
-    @refable.changes.each do |k, v|
-      changed_params[k] = v.last
+    if @refable.update_attributes(journal_params)
+      flash[:notice] = "Journal was successfully updated."
     end
-
-    respond_to do |format|
-      if @refable.update_attributes(changed_params)
-        format.html { redirect_to journal_path(@refable), :notice => 'Journal was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render "refable/edit" }
-        format.json { render :json => @refable.errors, :status => :unprocessable_entity }
-      end
-    end
+    respond_with(@refable)
   end
 
   # DELETE /journals/1
@@ -94,11 +74,8 @@ class JournalsController < ApplicationController
   def destroy
     @refable = Journal.find(params[:id])
     @refable.destroy
-
-    respond_to do |format|
-      format.html { redirect_to publisher_path(@refable.publisher) }
-      format.json { head :no_content }
-    end
+    flash[:notice] = "Journal was successfully deleted."
+    respond_with(@refable.publisher)
   end
 
   private

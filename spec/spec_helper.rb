@@ -40,4 +40,5 @@ RSpec.configure do |config|
   config.order = "random"
 
   Capybara.javascript_driver = :poltergeist
+  WebMock.disable_net_connect!(allow_localhost: true)
 end

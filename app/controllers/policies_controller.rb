@@ -1,43 +1,32 @@
 class PoliciesController < ApplicationController
     before_filter :get_refable
+    respond_to :html, :xml, :json
 
     def new
         @policy = Policy.new
+        respond_with(@refable, @policy)
     end
 
     def create
-        @policy = Policy.new(policy_params)
-        @policy.policyable = @refable
-
-        respond_to do |format|
-            if @policy.save
-                format.html { redirect_to @refable, :notice => 'Policy was successfully created.' }
-                format.json {
-                    render partial: "policy", locals: { policy: @policy },
-                    status: :created
-                }
-            else
-                format.html { render :action => "new" }
-                format.json { render :json => @policy.errors, :status => :unprocessable_entity }
-            end
+        @policy = @refable.build_policy(policy_params)
+        flash[:notice] = 'Policy was successfully created.' if @policy.save
+        respond_with(@refable, @policy) do |format|
+            format.html { redirect_to @refable }
         end
     end
 
     def edit
         @policy = Policy.find(params[:id])
+        respond_with(@refable, @policy)
     end
 
     def update
         @policy = Policy.find(params[:id])
-
-        respond_to do |format|
-            if @policy.update_attributes(policy_params)
-                format.html { redirect_to @policy.policyable, :notice => 'Policy was successfully updated.' }
-                format.json { head :no_content }
-            else
-                format.html { render :action => "edit" }
-                format.json { render :json => @policy.errors, :status => :unprocessable_entity }
-            end
+        if @policy.update_attributes(policy_params)
+            flash[:notice] = "Policy was successfully updated."
+        end
+        respond_with(@refable, @policy) do |format|
+            format.html { redirect_to @refable }
         end
     end
 
