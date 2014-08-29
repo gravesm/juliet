@@ -1,5 +1,4 @@
 class PoliciesController < ApplicationController
-    include PoliciesHelper
     before_filter :get_refable
 
     def new
@@ -14,7 +13,7 @@ class PoliciesController < ApplicationController
             if @policy.save
                 format.html { redirect_to @refable, :notice => 'Policy was successfully created.' }
                 format.json {
-                    render json: policy_to_json(@policy),
+                    render partial: "policy", locals: { policy: @policy },
                     status: :created
                 }
             else

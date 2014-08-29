@@ -1,5 +1,4 @@
 class SearchController < ApplicationController
-    include RefablesHelper
     before_filter :do_query
 
     def index
@@ -10,19 +9,7 @@ class SearchController < ApplicationController
 
     def search
         respond_to do |format|
-            format.json {
-                json = {
-                    :response => {
-                        :type => params[:type],
-                        :query => params[:query],
-                        :results => @refable ? 1 : 0
-                    }
-                }
-                unless @refable.nil?
-                    json[:result] = refable_to_json(@refable)
-                end
-                render json: json
-            }
+            format.json
             format.xml
         end
     end

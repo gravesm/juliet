@@ -1,5 +1,4 @@
 class EntityRefsController < ApplicationController
-  include RefablesHelper
   before_filter :get_refable
 
   def index
@@ -16,9 +15,7 @@ class EntityRefsController < ApplicationController
           redirect_to url_for([@refable, :entity_refs]),
           notice: "Alias #{ @entity_ref.refvalue } added."
         }
-        format.json do
-          render json: refable_to_json(@refable), status: :created
-        end
+        format.json { render status: :created }
       else
         format.html {
           redirect_to url_for([@refable, :entity_refs]),

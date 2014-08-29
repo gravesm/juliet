@@ -26,7 +26,7 @@ describe "Publisher API", type: :request do
             expect(response.status).to eq(200)
             res = JSON.parse(response.body)
             expect(res["name"]).to eq("Bramblenip")
-            expect(res["href"]).to eq("http://www.example.com/publishers/#{pub.id}")
+            expect(res["href"]).to eq("/publishers/#{pub.id}")
         end
 
         it "delete publishers" do
@@ -46,7 +46,7 @@ describe "Publisher API", type: :request do
             pub = FactoryGirl.create :publisher
             get "/publishers/#{pub.id}", format: "json"
             expect(JSON.parse(response.body)["policy"]["href"]).to eq(
-                "http://www.example.com/publishers/#{pub.id}/policies/#{pub.policy.id}")
+                "/publishers/#{pub.id}/policies/#{pub.policy.id}")
         end
 
         it "retrieve a publisher as XML" do

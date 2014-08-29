@@ -1,0 +1,1 @@
+json.partial! 'refable/refable', refable: @refable

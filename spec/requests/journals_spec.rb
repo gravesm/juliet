@@ -32,7 +32,7 @@ describe "Journal API", type: :request do
             j = FactoryGirl.create :journal
             get "/journals/#{j.id}", format: "json"
             expect(JSON.parse(response.body)["href"]).to eq(
-                "http://www.example.com/journals/#{j.id}")
+                "/journals/#{j.id}")
         end
 
         it "delete journals" do
@@ -58,7 +58,7 @@ describe "Journal API", type: :request do
             j = FactoryGirl.create :journal
             get "/journals/#{j.id}", format: "json"
             expect(JSON.parse(response.body)["policy"]["href"]).to eq(
-                "http://www.example.com/journals/#{j.id}/policies/#{j.policy.id}")
+                "/journals/#{j.id}/policies/#{j.policy.id}")
         end
 
         it "retrieve a journal as XML" do
